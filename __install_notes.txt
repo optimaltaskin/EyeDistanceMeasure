@@ -1,0 +1,25 @@
+to install torch
+    pip install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio===0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+
+to install mmcv full
+
+    pip install mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.10.0/index.html
+
+then proceed as instructed:
+
+    pip install mmdet
+
+    # for instaboost
+    pip install instaboostfast
+    # for panoptic segmentation
+    pip install git+https://github.com/cocodataset/panopticapi.git
+    # for LVIS dataset
+    pip install git+https://github.com/lvis-dataset/lvis-api.git
+    # for albumentations
+    pip install -r requirements/albu.txt
+
+
+to display images install pckg below:
+
+    sudo apt-get install python3-tk
+

@@ -1,0 +1,18 @@
+-r requirements/build.txt
+-r requirements/optional.txt
+-r requirements/runtime.txt
+-r requirements/tests.txt
+
+mmdet~=2.22.0
+opencv-python~=4.5.5.64
+torch~=1.10.0+cu113
+imageio~=2.16.1
+scikit-learn~=1.0.2
+panopticapi~=0.1
+albumentations~=1.1.0
+lvis~=0.5.3
+Pillow~=9.0.1
+requests~=2.27.1
+seaborn~=0.11.2
+setuptools~=57.0.0
+scikit-image~=0.19.2
