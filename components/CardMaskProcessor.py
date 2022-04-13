@@ -2,6 +2,11 @@ import math
 import random
 import numpy as np
 import cv2
+import os
+
+
+class NoMaskError(Exception):
+    pass
 
 
 r = lambda: random.randint(0, 255)
@@ -41,6 +46,8 @@ class ParallelSegments:
     def len_segments(self) -> int:
         return len(self.segments_list)
 
+    def contains_segment(self, segment: Segment) -> bool:
+        return segment in self.segments_list
 
 class CardMaskProcessor:
 
@@ -58,8 +65,15 @@ class CardMaskProcessor:
         self.parallel_segments: [] = []
         self.min_segment_length = min_segment_length
 
+        self.min_slope_dif = 0.15
+
     def binary_to_grayscale(self):
-        mask = self.inference[1][0][0]
+        try:
+            mask = self.inference[1][0][0]
+        except IndexError:
+            print(f"Warning! No mask found for file {self.image_filename}")
+            raise NoMaskError
+
         mask_np = (np.array(mask) * 255.0).astype('uint8')
         mask_stacked = np.stack((mask_np,) * 3, -1)
         self.grayscale_mask = cv2.cvtColor(mask_stacked, cv2.COLOR_BGR2GRAY)
@@ -166,25 +180,23 @@ class CardMaskProcessor:
             i = self.segments[-1]
             cv2.circle(image, (i.point2[0], i.point2[1]), 2, color, 2)
 
-        min_slope_dif = 0.1
-
         for i in range(len(self.segments) - 1):
             s1 = self.segments[i]
             index_next = (i + 1) % (len(self.segments))
             s2 = self.segments[index_next]
             slope_dif = abs(s1.slope - s2.slope)
-            print(f"i1: {i}   and     i2: {index_next}")
-            print(f"Slopes diff: {slope_dif}     Min slope dif: {min_slope_dif}")
-            if slope_dif < min_slope_dif:
+            # print(f"i1: {i}   and     i2: {index_next}")
+            # print(f"Slopes diff: {slope_dif}     Min slope dif: {self.min_slope_dif}")
+            if slope_dif < self.min_slope_dif:
 
                 if i == len(self.segments):
                     # this boundary condition has a special case
                     next_index = self.get_first_non_zero_length_index()
-                    print(f"Index next changed to: {index_next}")
-                print(f"segment no: {i} will be deleted.")
-                print(f"Changing seg#{index_next}'s point1 from {self.segments[index_next].point1} to {self.segments[i].point1}")
-                print(f"segment {i} data was: {self.segments[i].__dict__}")
-                print(f"segment {index_next} data was: {self.segments[index_next].__dict__}")
+                #     print(f"Index next changed to: {index_next}")
+                # print(f"segment no: {i} will be deleted.")
+                # print(f"Changing seg#{index_next}'s point1 from {self.segments[index_next].point1} to {self.segments[i].point1}")
+                # print(f"segment {i} data was: {self.segments[i].__dict__}")
+                # print(f"segment {index_next} data was: {self.segments[index_next].__dict__}")
                 self.segments[index_next].point1 = self.segments[i].point1
                 self.segments[index_next].calculate_properties()
                 self.segments[i].length = 0.0
@@ -234,6 +246,12 @@ class CardMaskProcessor:
 
             imshow_revised(image3, 'Segment Lines - Refinement by length')
 
+    def is_segment_processed(self, segment: Segment) -> bool:
+        for p in self.parallel_segments:
+            if p.contains_segment(segment):
+                return True
+        return False
+
     def find_card_top_and_bottom(self, display_refinement: bool = False):
 
         self.generate_segments()
@@ -251,18 +269,27 @@ class CardMaskProcessor:
             parallel_s.add_segment(s)
             print(f"Processing segment:\n{s.__dict__}")
 
+            # is the segment processed before?
+            if self.is_segment_processed(s):
+                continue
+
             for rem_segment in remaining_segments:
                 slope_dif = abs(s.slope - rem_segment.slope)
                 print(f"Slope difference is {slope_dif}")
-                if slope_dif < 0.15:
+                # multiplication below is required to prevent adding more than two segments in the
+                # parallel segments list
+                if slope_dif < self.min_slope_dif * 0.95:
                     print(f"Parallel segment found.")
                     print(f"Other seg: {rem_segment.__dict__}")
                     parallel_s.add_segment(rem_segment)
+
             if parallel_s.len_segments() > 1:
                 print("Adding parallel segments.")
                 self.parallel_segments.append(parallel_s)
 
         # draw parallel segments
+        if not self.image:
+            self.image = cv2.imread(self.image_filename)
         image_parallel = self.image.copy()
         for p in self.parallel_segments:
             color = (r(), r(), r())
@@ -271,7 +298,15 @@ class CardMaskProcessor:
             for s in p.segments_list:
                 cv2.line(image_parallel, s.point1, s.point2, color, 2)
 
-        imshow_revised(image_parallel, "Parallel segments marked")
+        # imshow_revised(image_parallel, "Parallel segments marked")
+        basename = os.path.basename(self.image_filename)
+        filename = os.path.splitext(basename)
+        print(f"SAVING FILE: {f'/results/{filename[0]}.jpg'}")
+        cv2.imwrite(f"results/{filename[0]}.jpg", image_parallel)
+        with open("results/parallel_segments.txt", "a+") as text_file:
+            text_file.write(f"{self.image_filename}\n")
+            for p in self.parallel_segments:
+                text_file.write(f"{p.__dict__}\n")
 
         if display_refinement:
             cv2.waitKey(0)

@@ -1,8 +1,8 @@
 from mmcv.runner import load_checkpoint
 from mmdet.apis import inference_detector, show_result_pyplot
 from mmdet.models import build_detector
-from scipy.spatial import ConvexHull
 from components.CardMaskProcessor import CardMaskProcessor
+from components.CardMaskProcessor import NoMaskError
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -52,26 +52,39 @@ model.to(device)
 # Convert the model into evaluation mode
 model.eval()
 
-img = 'data/base_set/validation/23.jpg'
+img = 'data/base_set/validation/87.jpg'
 image = cv2.imread(img)
-# img = 'data/val1.jpg'
-#
+
 maskProcessor = CardMaskProcessor(inference_detector(model, img), img)
 
 maskProcessor.binary_to_grayscale()
 maskProcessor.define_contours()
-maskProcessor.create_convexhull(draw_contours=False)
+maskProcessor.create_convexhull(draw_contours=True)
 maskProcessor.find_card_top_and_bottom(display_refinement=True)
 
 
 # directory = 'data/base_set/validation/'
-# directory = 'data/'
+# # directory = 'data/'
+# with open("results/failed_files.txt", "w+") as text_file:
+#     pass
 #
 # for filename in os.listdir(directory):
 #
 #     if filename.endswith(".jpg"):
 #         full_path = os.path.join(directory, filename)
 #         print(f"Processing file: {full_path}")
-#         result = inference_detector(model, full_path)
-#         # show_result_pyplot(model, full_path, result, score_thr=0.7)
-#         model.show_result(full_path, result, out_file=f"results/{filename}")
+#         # result = inference_detector(model, full_path)
+#         # # show_result_pyplot(model, full_path, result, score_thr=0.7)
+#         # model.show_result(full_path, result, out_file=f"results/{filename}")
+#         maskProcessor = CardMaskProcessor(inference_detector(model, full_path), full_path)
+#         try:
+#             maskProcessor.binary_to_grayscale()
+#         except NoMaskError:
+#             print(f"Mask not found for file {filename}")
+#             with open("results/failed_files.txt", "w+") as text_file:
+#                 text_file.write(f"{filename}\n")
+#             continue
+#
+#         maskProcessor.define_contours()
+#         maskProcessor.create_convexhull(draw_contours=False)
+#         maskProcessor.find_card_top_and_bottom(display_refinement=False)
