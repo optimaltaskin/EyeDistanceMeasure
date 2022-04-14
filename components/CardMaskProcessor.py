@@ -49,6 +49,7 @@ class ParallelSegments:
     def contains_segment(self, segment: Segment) -> bool:
         return segment in self.segments_list
 
+
 class CardMaskProcessor:
 
     def __init__(self, inference: (), image_filename: str, threshold: int = 100, min_segment_length: float = 10.0):
@@ -100,7 +101,7 @@ class CardMaskProcessor:
 
     def generate_segments(self):
         for h in self.hull_list[0]:
-            print (f"{h[0][0]}   {h[0][1]}")
+            print(f"{h[0][0]}   {h[0][1]}")
         for i, h in enumerate(self.hull_list[0]):
             print(f"Segment {i} of {len(self.hull_list[0]) - 1}")
             p1 = h[0]
@@ -142,8 +143,7 @@ class CardMaskProcessor:
     #
     #             if display_refinement:
     #                 cv2.putText(image, f"{index_next}", (s2.point1[0], s2.point1[1]),
-    #                             cv2.FONT_HERSHEY_PLAIN,
-    #                             0.5, (0, 255, 0), 1)
+    #                             cv2.FONT_HERSHEY_PLAIN, 0.5, (0, 255, 0), 1)
     #
     #     # delete segments pointed by indexes in delete_items
     #     delete_items.sort(reverse=True)
@@ -252,15 +252,7 @@ class CardMaskProcessor:
                 return True
         return False
 
-    def find_card_top_and_bottom(self, display_refinement: bool = False):
-
-        self.generate_segments()
-        if display_refinement:
-            self.image = cv2.imread(self.image_filename)
-
-        self.refine_by_similarity(display_refinement)
-        self.refine_by_length(display_refinement)
-
+    def match_parallel_lines(self, save_result: bool):
         for i, s in enumerate(self.segments):
             slope = s.slope
             remaining_segments = self.segments.copy()
@@ -287,31 +279,47 @@ class CardMaskProcessor:
                 print("Adding parallel segments.")
                 self.parallel_segments.append(parallel_s)
 
-        # draw parallel segments
-        if not self.image:
-            self.image = cv2.imread(self.image_filename)
-        image_parallel = self.image.copy()
-        for p in self.parallel_segments:
-            color = (r(), r(), r())
-            print(f"Parallel segment:\n{p.__dict__}")
-
-            for s in p.segments_list:
-                cv2.line(image_parallel, s.point1, s.point2, color, 2)
-
-        # imshow_revised(image_parallel, "Parallel segments marked")
-        basename = os.path.basename(self.image_filename)
-        filename = os.path.splitext(basename)
-        print(f"SAVING FILE: {f'/results/{filename[0]}.jpg'}")
-        cv2.imwrite(f"results/{filename[0]}.jpg", image_parallel)
-        with open("results/parallel_segments.txt", "a+") as text_file:
-            text_file.write(f"{self.image_filename}\n")
+        if save_result:
+            # draw parallel segments
+            if not self.image:
+                self.image = cv2.imread(self.image_filename)
+            image_parallel = self.image.copy()
             for p in self.parallel_segments:
-                text_file.write(f"{p.__dict__}\n")
+                color = (r(), r(), r())
+                print(f"Parallel segment:\n{p.__dict__}")
+
+                for s in p.segments_list:
+                    cv2.line(image_parallel, s.point1, s.point2, color, 2)
+                    cv2.putText(image_parallel, f"{s.point1}", (s.point1[0], s.point1[1] - 20),
+                                cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)
+                    cv2.putText(image_parallel, f"{s.point2}", (s.point2[0], s.point2[1] - 20),
+                                cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)
+                    mid_point = (int((s.point1[0] + s.point2[0]) / 2), int((s.point1[1] + s.point2[1]) / 2))
+                    cv2.putText(image_parallel, f"{mid_point}", (mid_point[0], mid_point[1] - 20),
+                                cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)
+            # imshow_revised(image_parallel, "Parallel segments marked")
+            basename = os.path.basename(self.image_filename)
+            filename = os.path.splitext(basename)
+            cv2.imwrite(f"results/{filename[0]}.jpg", image_parallel)
+            with open(f"results/{filename[0]}.jpg_parallel_segments.txt", "w+") as text_file:
+                text_file.write(f"{self.image_filename}\n")
+                for p in self.parallel_segments:
+                    for s in p.segments_list:
+                        text_file.write(f"{s.__dict__}\n")
+
+    def find_card_top_and_bottom(self, display_refinement: bool = False, save_result: bool = False):
+
+        self.generate_segments()
+        if display_refinement:
+            self.image = cv2.imread(self.image_filename)
+
+        self.refine_by_similarity(display_refinement)
+        self.refine_by_length(display_refinement)
+        self.match_parallel_lines(save_result)
 
         if display_refinement:
             cv2.waitKey(0)
             cv2.destroyAllWindows()
-
 
         # for each segment check if there is any parallel segment.
         # If there are two or more sets of parallel segments, than choose the set which is closest to horizontal axis
@@ -319,3 +327,38 @@ class CardMaskProcessor:
         # to calculate the distance, project a line from mid part of each segment to other. You will have two measurements
         # take mean of those two measurements.
 
+    def measure_mean_height_px(self) -> float:
+
+        if len(self.parallel_segments) > 1:
+            print("More than one parallel segments were found. Using first one!")
+            # todo: implement filtering more than one parallel segments
+
+        assert len(self.parallel_segments) != 0, "No parallel segments were formed!"
+
+        height_px = 0.0
+
+        # use first parallel segment. todo: This logic has a bug, when there are more than two
+        # parallel segment groups it might fail. Implement a filtering logic to find top and bottom
+        # lines.
+        len_segments = len(self.parallel_segments[0].segments_list)
+        for i in range(len_segments):
+            s1 = self.parallel_segments[0].segments_list[i % len_segments]
+            s2 = self.parallel_segments[0].segments_list[(i + 1)% len_segments]
+
+            mid_point = (int((s1.point1[0] + s1.point2[0]) / 2), int((s1.point1[1] + s1.point2[1]) / 2))
+            print(f"Midpoint: {mid_point}")
+
+            x1, y1 = s2.point1[0], s2.point1[1]
+            x2, y2 = s2.point2[0], s2.point2[1]
+            x0, y0 = mid_point[0], mid_point[1]
+
+            upper_part = abs((x2 - x1) * (y1 - y0) - (x1 - x0) * (y2 - y1))
+            lower_part = math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+            d = upper_part / lower_part
+
+            print(f"Distance from point {mid_point} to segment line is:\n{d}")
+            height_px += d
+
+        height_px /= 2.0
+        print(f"Mean height of card in px: {height_px}")
+        return height_px

@@ -52,16 +52,16 @@ model.to(device)
 # Convert the model into evaluation mode
 model.eval()
 
-img = 'data/base_set/validation/87.jpg'
+img = 'data/base_set/validation/30.jpg'
 image = cv2.imread(img)
 
 maskProcessor = CardMaskProcessor(inference_detector(model, img), img)
 
 maskProcessor.binary_to_grayscale()
 maskProcessor.define_contours()
-maskProcessor.create_convexhull(draw_contours=True)
-maskProcessor.find_card_top_and_bottom(display_refinement=True)
-
+maskProcessor.create_convexhull(draw_contours=False)
+maskProcessor.find_card_top_and_bottom(display_refinement=False, save_result=True)
+maskProcessor.measure_mean_height_px()
 
 # directory = 'data/base_set/validation/'
 # # directory = 'data/'
