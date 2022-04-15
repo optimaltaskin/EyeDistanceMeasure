@@ -35,7 +35,7 @@ class Segment:
             self.slope = (self.point2[1] - self.point1[1]) / (self.point2[0] - self.point1[0])
 
 
-class ParallelSegments:
+class ParallelSegment:
 
     def __init__(self):
         self.segments_list: [] = []
@@ -66,16 +66,17 @@ class CardMaskProcessor:
         self.parallel_segments: [] = []
         self.min_segment_length = min_segment_length
 
-        self.min_slope_dif = 0.15
-
-    def binary_to_grayscale(self):
         try:
-            mask = self.inference[1][0][0]
+            self.mask = self.inference[1][0][0]
+            self.bounding_box = self.inference[0][0]
         except IndexError:
             print(f"Warning! No mask found for file {self.image_filename}")
             raise NoMaskError
 
-        mask_np = (np.array(mask) * 255.0).astype('uint8')
+        self.min_slope_dif = 0.15
+
+    def binary_to_grayscale(self):
+        mask_np = (np.array(self.mask) * 255.0).astype('uint8')
         mask_stacked = np.stack((mask_np,) * 3, -1)
         self.grayscale_mask = cv2.cvtColor(mask_stacked, cv2.COLOR_BGR2GRAY)
 
@@ -110,60 +111,6 @@ class CardMaskProcessor:
             s = Segment([p1[0], p1[1]], [p2[0], p2[1]])
             self.segments.append(s)
             print(f"{i}: {p1}   {i2}: {p2}")
-
-    # def refine_by_similarity(self, display_refinement: bool):
-    #     if display_refinement:
-    #         image = self.image.copy()
-    #         image2 = self.image.copy()
-    #         for t, i in enumerate(self.segments):
-    #             color = (255, 0, 0)
-    #             cv2.circle(image, (i.point1[0], i.point1[1]), 2, color, 2)
-    #         i = self.segments[-1]
-    #         cv2.circle(image, (i.point2[0], i.point2[1]), 2, color, 2)
-    #
-    #     min_slope_dif = 0.05
-    #     delete_items: [] = []
-    #
-    #     for i in range(len(self.segments) - 1):
-    #         s1 = self.segments[i]
-    #         index_next = (i + 1) % (len(self.segments))
-    #         s2 = self.segments[index_next]
-    #         slope_dif = abs(s1.slope - s2.slope)
-    #         if slope_dif < min_slope_dif:
-    #
-    #             if i in delete_items:
-    #                 # this segment will be deleted. So merge next segment with previous one
-    #                 origin = i - 1
-    #             else:
-    #                 # merge two segments, since they are too similar
-    #                 origin = i
-    #             self.segments[origin].point2 = self.segments[index_next].point2
-    #             self.segments[origin].calculate_properties()
-    #             delete_items.append(index_next)
-    #
-    #             if display_refinement:
-    #                 cv2.putText(image, f"{index_next}", (s2.point1[0], s2.point1[1]),
-    #                             cv2.FONT_HERSHEY_PLAIN, 0.5, (0, 255, 0), 1)
-    #
-    #     # delete segments pointed by indexes in delete_items
-    #     delete_items.sort(reverse=True)
-    #
-    #     for i in delete_items:
-    #         del self.segments[i]
-    #
-    #     if display_refinement:
-    #         for t, i in enumerate(self.segments):
-    #             color = (255, 0, 0)
-    #             cv2.circle(image2, (i.point1[0], i.point1[1]), 2, color, 2)
-    #             cv2.putText(image2, f"{t}", (i.point1[0], i.point1[1]), cv2.FONT_HERSHEY_PLAIN,
-    #                         0.5, (0, 255, 0), 1)
-    #         i = self.segments[-1]
-    #         cv2.circle(image2, (i.point2[0], i.point2[1]), 2, color, 2)
-    #         cv2.putText(image2, f"{len(self.segments)}", (i.point2[0], i.point2[1]), cv2.FONT_HERSHEY_PLAIN,
-    #                     0.5, (0, 255, 0), 1)
-    #
-    #         imshow_revised(image, 'Segment Points')
-    #         imshow_revised(image2, 'Segment Points - Refine by similarity')
 
     def get_first_non_zero_length_index(self) -> int:
         for i, s in enumerate(self.segments):
@@ -246,18 +193,28 @@ class CardMaskProcessor:
 
             imshow_revised(image3, 'Segment Lines - Refinement by length')
 
+    def refine_coinciding_with_bounding_box(self):
+
+        delete_items: [] = []
+
+        # for i, s in enumerate(self.segments):
+        #     if s.point1[0] in self.bounding_box
+
+        delete_items.sort(reverse=True)
+        for i in delete_items:
+            del self.segments[i]
+
     def is_segment_processed(self, segment: Segment) -> bool:
         for p in self.parallel_segments:
             if p.contains_segment(segment):
                 return True
         return False
 
-    def match_parallel_lines(self, save_result: bool):
+    def match_parallel_lines(self, save_result: bool, result_to_image):
         for i, s in enumerate(self.segments):
-            slope = s.slope
             remaining_segments = self.segments.copy()
             remaining_segments.pop(i)
-            parallel_s = ParallelSegments()
+            parallel_s = ParallelSegment()
             parallel_s.add_segment(s)
             print(f"Processing segment:\n{s.__dict__}")
 
@@ -281,9 +238,14 @@ class CardMaskProcessor:
 
         if save_result:
             # draw parallel segments
-            if not self.image:
+            if result_to_image is not None:
+                image_parallel = result_to_image
+            elif not self.image:
                 self.image = cv2.imread(self.image_filename)
-            image_parallel = self.image.copy()
+                image_parallel = self.image.copy()
+            else:
+                image_parallel = self.image.copy()
+
             for p in self.parallel_segments:
                 color = (r(), r(), r())
                 print(f"Parallel segment:\n{p.__dict__}")
@@ -298,16 +260,17 @@ class CardMaskProcessor:
                     cv2.putText(image_parallel, f"{mid_point}", (mid_point[0], mid_point[1] - 20),
                                 cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 1)
             # imshow_revised(image_parallel, "Parallel segments marked")
-            basename = os.path.basename(self.image_filename)
-            filename = os.path.splitext(basename)
-            cv2.imwrite(f"results/{filename[0]}.jpg", image_parallel)
-            with open(f"results/{filename[0]}.jpg_parallel_segments.txt", "w+") as text_file:
-                text_file.write(f"{self.image_filename}\n")
-                for p in self.parallel_segments:
-                    for s in p.segments_list:
-                        text_file.write(f"{s.__dict__}\n")
+            if result_to_image is None:
+                basename = os.path.basename(self.image_filename)
+                filename = os.path.splitext(basename)
+                cv2.imwrite(f"results/{filename[0]}.jpg", image_parallel)
+                with open(f"results/{filename[0]}.jpg_parallel_segments.txt", "w+") as text_file:
+                    text_file.write(f"{self.image_filename}\n")
+                    for p in self.parallel_segments:
+                        for s in p.segments_list:
+                            text_file.write(f"{s.__dict__}\n")
 
-    def find_card_top_and_bottom(self, display_refinement: bool = False, save_result: bool = False):
+    def find_card_top_and_bottom(self, display_refinement: bool = False, save_result: bool = False, result_to_image = None):
 
         self.generate_segments()
         if display_refinement:
@@ -315,7 +278,19 @@ class CardMaskProcessor:
 
         self.refine_by_similarity(display_refinement)
         self.refine_by_length(display_refinement)
-        self.match_parallel_lines(save_result)
+        self.match_parallel_lines(save_result, result_to_image)
+
+        # bounding box size
+        top = int(self.bounding_box[0][0])
+        left = int(self.bounding_box[0][1])
+        bottom = int(self.bounding_box[0][2])
+        right = int(self.bounding_box[0][3])
+
+        cv2.circle(result_to_image, (top, left), 3, (0, 255, 0), thickness=-1)
+        cv2.circle(result_to_image, (bottom, left), 3, (0, 255, 0), thickness=-1)
+        cv2.circle(result_to_image, (top, right), 3, (0, 255, 0), thickness=-1)
+        cv2.circle(result_to_image, (bottom, right), 3, (0, 255, 0), thickness=-1)
+
 
         if display_refinement:
             cv2.waitKey(0)
@@ -327,7 +302,27 @@ class CardMaskProcessor:
         # to calculate the distance, project a line from mid part of each segment to other. You will have two measurements
         # take mean of those two measurements.
 
-    def measure_mean_height_px(self) -> float:
+    def select_parallel_segment(self) -> ParallelSegment:
+        if len(self.parallel_segments) == 1:
+            return self.parallel_segments[0]
+        else:
+            most_horizontal: float = 99.0
+            p_segment: ParallelSegment = None
+            for p in self.parallel_segments:
+                try:
+                    slope = p.segments_list[0].slope
+                except IndexError:
+                    print(f"Segment list contains no segments!. Parallel Segment containind faulty segment: 'n{p}")
+                    raise ValueError
+                if slope < most_horizontal:
+                    p_segment = p
+                    most_horizontal = slope
+
+            assert p_segment is not None, "Something went wrong with parallel segment selection. Multiple parallel " \
+                                          "segments contains faulty segments. "
+            return p_segment
+
+    def measure_mean_height_px(self, mark_to_image = None) -> float:
 
         if len(self.parallel_segments) > 1:
             print("More than one parallel segments were found. Using first one!")
@@ -340,13 +335,15 @@ class CardMaskProcessor:
         # use first parallel segment. todo: This logic has a bug, when there are more than two
         # parallel segment groups it might fail. Implement a filtering logic to find top and bottom
         # lines.
-        len_segments = len(self.parallel_segments[0].segments_list)
+        p_segment = self.select_parallel_segment()
+        len_segments = len(p_segment.segments_list)
         for i in range(len_segments):
-            s1 = self.parallel_segments[0].segments_list[i % len_segments]
-            s2 = self.parallel_segments[0].segments_list[(i + 1)% len_segments]
+            s1 = p_segment.segments_list[i % len_segments]
+            s2 = p_segment.segments_list[(i + 1)% len_segments]
 
             mid_point = (int((s1.point1[0] + s1.point2[0]) / 2), int((s1.point1[1] + s1.point2[1]) / 2))
-            print(f"Midpoint: {mid_point}")
+            if mark_to_image is not None:
+                cv2.circle(mark_to_image, (mid_point[0], mid_point[1]), 3, (255, 0, 0))
 
             x1, y1 = s2.point1[0], s2.point1[1]
             x2, y2 = s2.point2[0], s2.point2[1]
