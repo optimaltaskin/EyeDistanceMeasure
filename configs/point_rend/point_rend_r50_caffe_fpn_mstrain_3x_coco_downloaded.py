@@ -58,7 +58,7 @@ model = dict(
             type='GenericRoIExtractor',
             roi_layer=dict(type='SimpleRoIAlign', output_size=14),
             out_channels=256,
-            featmap_strides=[4],
+            featmap_strides=[2],
             aggregation='concat'),
         mask_head=dict(
             type='CoarseMaskHead',
@@ -156,7 +156,7 @@ train_pipeline = [
         to_rgb=False),
     dict(type='Pad', size_divisor=32),
     dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks'])
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks', 'filename'])
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile'),

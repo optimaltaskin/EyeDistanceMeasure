@@ -1,0 +1,1 @@
+THIS FILE CONTAINS ALL FAILED DETECTIONS...24.jpg - Parallel line not found!
