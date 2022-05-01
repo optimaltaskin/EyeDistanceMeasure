@@ -32,28 +32,28 @@ BRIGHTNESS_FILTERS = [
 
 BLUR_FILTERS = [
     # {"filter": ImageFilter.BLUR, "suffix": "blurred_light"},
-    {"filter": ImageFilter.BoxBlur(4), "suffix": "blurred_moderate"},
-    # {"filter": ImageFilter.BoxBlur(8), "suffix": "blurred_heavy"},
-    {"filter": ImageFilter.BoxBlur(12), "suffix": "blurred_extreme"},
+    # {"filter": ImageFilter.BoxBlur(4), "suffix": "blurred_moderate"},
+    {"filter": ImageFilter.BoxBlur(8), "suffix": "blurred_heavy"},
+    # {"filter": ImageFilter.BoxBlur(12), "suffix": "blurred_extreme"},
 ]
 
 NOISE_FILTER = [
     {"mode": "gaussian", "var": 0.12, "suffix": "gaussian"},
     # {"mode": "gaussian", "var": 0.06, "suffix": "gaussian"},
-    {"mode": 's&p', "amount": 0.12, "suffix": "snp"},
+    # {"mode": 's&p', "amount": 0.12, "suffix": "snp"},
     # {"mode": 'speckle', "mean": 0.5, "suffix": "speckle"}
 ]
 
 CONTRAST_FILTER = [
-    {"enhance": 0.25, "suffix": "contrast_025"},
+    # {"enhance": 0.25, "suffix": "contrast_025"},
     # {"enhance": 0.6, "suffix": "contrast_060"},
     # {"enhance": 1.5, "suffix": "contrast_150"},
-    {"enhance": 2.0, "suffix": "contrast_200"},
+    # {"enhance": 2.0, "suffix": "contrast_200"},
 ]
 
 COLOR_SPACES = [
     # {"space": cv2.COLOR_BGR2LAB, "suffix": "cspace_lab"},
-    {"space": cv2.COLOR_BGR2YCrCb, "suffix": "cspace_lYCrCb"},
+    # {"space": cv2.COLOR_BGR2YCrCb, "suffix": "cspace_lYCrCb"},
     {"space": cv2.COLOR_BGR2HSV, "suffix": "cspace_hsv"},
     {"space": cv2.COLOR_BGR2GRAY, "suffix": "cspace_gray"},
 ]

@@ -4,11 +4,28 @@ model = dict(
         bbox_head=dict(
             num_classes=1,
         ),
+        mask_roi_extractor=dict(
+            type='SingleRoIExtractor',
+            roi_layer=dict(type='RoIAlign', output_size=28, sampling_ratio=0),
+            out_channels=256,
+            featmap_strides=[4, 8, 16, 32]),
         mask_head=dict(
+            type='FCNMaskHead',
+            num_convs=4,
+            in_channels=256,
+            conv_out_channels=256,
             num_classes=1,
-        ),
+            loss_mask=dict(
+                type='CrossEntropyLoss', use_mask=True, loss_weight=1.0)),
         point_head=dict(
             num_classes=1,
+            in_channels=1024,
+            fc_channels=1024,
+        ),
+    ),
+    train_cfg=dict(
+        rcnn=dict(
+            mask_size=56,
         ),
     ),
     test_cfg=dict(

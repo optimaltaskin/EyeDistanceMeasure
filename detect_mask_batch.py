@@ -61,6 +61,8 @@ def arguement_parse():
                                                   "--single_step with that arguement.", required=False, default=False)
     parser.add_argument("--save_to_folder", help="folder location to save results",
                         required=False, default="")
+    parser.add_argument("--images_dir", help="Directory to images to process",
+                        required=False, default='data/result_validation/')
     return parser.parse_args()
 
 
@@ -161,7 +163,7 @@ def main():
     model.to(device)
     model.eval()
 
-    directory = 'data/result_validation/'
+    directory = args.images_dir
     target_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                  target_folder)
     if not os.path.isdir(target_folder):

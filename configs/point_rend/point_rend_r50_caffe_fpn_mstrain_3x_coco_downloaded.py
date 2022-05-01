@@ -54,21 +54,21 @@ model = dict(
             loss_cls=dict(
                 type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
             loss_bbox=dict(type='L1Loss', loss_weight=1.0)),
-        mask_roi_extractor=dict(
-            type='GenericRoIExtractor',
-            roi_layer=dict(type='SimpleRoIAlign', output_size=14),
-            out_channels=256,
-            featmap_strides=[2],
-            aggregation='concat'),
-        mask_head=dict(
-            type='CoarseMaskHead',
-            num_fcs=2,
-            in_channels=256,
-            conv_out_channels=256,
-            fc_out_channels=1024,
-            num_classes=80,
-            loss_mask=dict(
-                type='CrossEntropyLoss', use_mask=True, loss_weight=1.0)),
+        # mask_roi_extractor=dict(
+        #     type='GenericRoIExtractor',
+        #     roi_layer=dict(type='SimpleRoIAlign', output_size=14),
+        #     out_channels=256,
+        #     featmap_strides=[2],
+        #     aggregation='concat'),
+        # mask_head=dict(
+        #     type='CoarseMaskHead',
+        #     num_fcs=2,
+        #     in_channels=256,
+        #     conv_out_channels=256,
+        #     fc_out_channels=1024,
+        #     num_classes=80,
+        #     loss_mask=dict(
+        #         type='CrossEntropyLoss', use_mask=True, loss_weight=1.0)),
         point_head=dict(
             type='MaskPointHead',
             num_fcs=3,
