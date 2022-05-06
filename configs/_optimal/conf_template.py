@@ -1,15 +1,22 @@
 _base_ = '../point_rend/point_rend_r50_caffe_fpn_mstrain_3x_coco_downloaded.py'
 model = dict(
+    backbone=dict(
+        depth={BBONE},
+        init_cfg=dict(
+            checkpoint={BBONE_PRETRAIN})
+    ),
     roi_head=dict(
         bbox_head=dict(
             num_classes=1,
         ),
         mask_roi_extractor=dict(
+            _delete_=True,
             type='SingleRoIExtractor',
             roi_layer=dict(type='RoIAlign', output_size={OUTPUT_SIZE}, sampling_ratio=0),
             out_channels=256,
             featmap_strides=[4, 8, 16, 32]),
         mask_head=dict(
+            _delete_=True,
             type='FCNMaskHead',
             num_convs=4,
             in_channels=256,

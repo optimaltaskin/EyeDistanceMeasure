@@ -177,6 +177,7 @@ def main():
 
             if args.image_file != "":
                 full_path = args.image_file
+                args.single_step = True
                 filename = f"{filename_no_extension(args.image_file)}.jpg"
             else:
                 full_path = os.path.join(directory, filename)

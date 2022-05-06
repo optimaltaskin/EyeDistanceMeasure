@@ -1,57 +1,38 @@
 _base_ = '../point_rend/point_rend_r50_caffe_fpn_mstrain_3x_coco_downloaded.py'
 model = dict(
-    rpn_head=dict(
-    ),
     roi_head=dict(
         bbox_head=dict(
             num_classes=1,
         ),
-        mask_roi_extractor=dict(
-            _delete_=True,
-            type='SingleRoIExtractor',
-            roi_layer=dict(type='RoIAlign', output_size=7, sampling_ratio=0),
-            out_channels=256,
-            featmap_strides=[4, 8, 16, 32]),
         mask_head=dict(
-            _delete_=True,
-            type='FCNMaskHead',
-            num_convs=4,
-            in_channels=256,
-            conv_out_channels=256,
             num_classes=1,
-            loss_mask=dict(
-                type='CrossEntropyLoss', use_mask=True, loss_weight=1.0)),
+        ),
         point_head=dict(
             num_classes=1,
-            in_channels=1024,
-        ),
-    ),
-    train_cfg=dict(
-        rcnn=dict(
-            mask_size=14,
         ),
     ),
     test_cfg=dict(
         rpn=dict(
-            max_per_img=100,),
+            max_per_img=100, ),
         rcnn=dict(
-            max_per_img=10,),
+            max_per_img=10, ),
     ),
 )
 dataset_type = 'COCODataset'
 classes = ('card',)
-log_config = dict(interval=4)
-checkpoint_config = dict(interval=36)
-# runner = dict(type='EpochBasedRunner', max_epochs=100)
+log_config = dict(interval=4, hooks=[dict(type='TextLoggerHook')])
+checkpoint_config = dict(interval=50)
+runner = dict(type='EpochBasedRunner', max_epochs=50)
 
-# optimizer = dict(type='AdamW', lr=0.00002, weight_decay=0.00001)
-optimizer = dict(lr=0.002)
-# optimizer_config = dict(grad_clip=None)
+optimizer = dict(type='SGD', lr=1e-06, weight_decay=1e-05)
+# optimizer = dict(_delete_=True, type='AdamW', lr={LEARNING_RATE}, weight_decay={WEIGHT_DECAY})
+optimizer_config = dict(grad_clip=None)
 
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
     train=dict(
+        # img_prefix='data/base_set/training/',
         img_prefix='data/base_set/training/',
         classes=classes,
         ann_file='data/base_set/training/training_labels.json'),

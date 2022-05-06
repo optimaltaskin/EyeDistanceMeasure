@@ -6,46 +6,26 @@ model = dict(
         bbox_head=dict(
             num_classes=1,
         ),
-        mask_roi_extractor=dict(
-            _delete_=True,
-            type='SingleRoIExtractor',
-            roi_layer=dict(type='RoIAlign', output_size=7, sampling_ratio=0),
-            out_channels=256,
-            featmap_strides=[4, 8, 16, 32]),
         mask_head=dict(
-            _delete_=True,
-            type='FCNMaskHead',
-            num_convs=4,
-            in_channels=256,
-            conv_out_channels=256,
             num_classes=1,
-            loss_mask=dict(
-                type='CrossEntropyLoss', use_mask=True, loss_weight=1.0)),
+        ),
         point_head=dict(
             num_classes=1,
-            in_channels=1024,
         ),
     ),
     train_cfg=dict(
         rcnn=dict(
-            mask_size=14,
+            mask_size=7,
         ),
-    ),
-    test_cfg=dict(
-        rpn=dict(
-            max_per_img=100,),
-        rcnn=dict(
-            max_per_img=10,),
     ),
 )
 dataset_type = 'COCODataset'
 classes = ('card',)
 log_config = dict(interval=4)
-checkpoint_config = dict(interval=36)
+checkpoint_config = dict(interval=12)
 # runner = dict(type='EpochBasedRunner', max_epochs=100)
 
-# optimizer = dict(type='AdamW', lr=0.00002, weight_decay=0.00001)
-optimizer = dict(lr=0.002)
+# optimizer = dict(type='AdamW', lr=0.0002, weight_decay=0.0001)
 # optimizer_config = dict(grad_clip=None)
 
 data = dict(

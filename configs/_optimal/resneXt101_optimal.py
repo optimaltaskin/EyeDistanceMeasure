@@ -17,11 +17,30 @@ model = dict(
         bbox_head=dict(
             num_classes=1,
         ),
+        mask_roi_extractor=dict(
+            _delete_=True,
+            type='SingleRoIExtractor',
+            roi_layer=dict(type='RoIAlign', output_size=7, sampling_ratio=0),
+            out_channels=256,
+            featmap_strides=[4, 8, 16, 32]),
         mask_head=dict(
+            _delete_=True,
+            type='FCNMaskHead',
+            num_convs=4,
+            in_channels=256,
+            conv_out_channels=256,
+            num_classes=1,
+            loss_mask=dict(
+                type='CrossEntropyLoss', use_mask=True, loss_weight=1.0)),
+        point_head=dict(
+            in_channels=1024,
             num_classes=1,
         ),
-        point_head=dict(
-            num_classes=1,
+    ),
+    train_cfg=dict(
+        rcnn=dict(
+            mask_size=14,
+            num_points=282,
         ),
     ),
     test_cfg=dict(
@@ -43,9 +62,9 @@ dataset_type = 'COCODataset'
 classes = ('card',)
 log_config = dict(interval=4)
 checkpoint_config = dict(interval=16)
-runner = dict(type='EpochBasedRunner', max_epochs=64)
+runner = dict(type='EpochBasedRunner', max_epochs=16)
 
-optimizer = dict(type='AdamW', lr=0.00002, weight_decay=0.00001)
+optimizer = dict(type='AdamW', lr=0.00001, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)
 
 data = dict(
@@ -70,3 +89,4 @@ data = dict(
 )
 
 load_from = 'checkpoints/point_rend_r50_caffe_fpn_mstrain_3x_coco-e0ebb6b7.pth'
+# load_from = 'checkpoints/pointrend_ResNeXt_model_final_ba17b9.pkl'

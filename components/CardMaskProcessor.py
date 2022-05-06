@@ -156,7 +156,8 @@ class CardMaskProcessor:
             print(f"Slopes diff: {slope_dif}     Min slope dif: {self.min_slope_dif}")
             if slope_dif < self.min_slope_dif:
                 print(f"segment no: {i} will be deleted.")
-                print(f"Changing seg#{index_next}'s point1 from {self.segments[index_next].point1} to {self.segments[i].point1}")
+                print(
+                    f"Changing seg#{index_next}'s point1 from {self.segments[index_next].point1} to {self.segments[i].point1}")
                 print(f"segment {i} data was: {self.segments[i].__dict__}")
                 print(f"segment {index_next} data was: {self.segments[index_next].__dict__}")
                 self.segments[index_next].point1 = self.segments[i].point1
@@ -204,7 +205,6 @@ class CardMaskProcessor:
         # draw segments
         if display_refinement:
             self.draw_segments(title='Segment Lines - Refinement by length')
-
 
     def refine_coinciding_with_bounding_box(self, result_to_image, display_refinement: bool = False):
 
@@ -328,7 +328,7 @@ class CardMaskProcessor:
         # for s in self.segments:
         #     print(f"{s.__dict__}")
         self.refine_by_similarity(display_refinement)
-        self.refine_coinciding_with_bounding_box(result_to_image, display_refinement)
+        # self.refine_coinciding_with_bounding_box(result_to_image, display_refinement)
         self.refine_by_length(display_refinement)
         # print("Remaining segments after refinement:\n")
         # for s in self.segments:
@@ -358,30 +358,43 @@ class CardMaskProcessor:
                     return True
         # return result
         return False
+
     def select_parallel_segment(self) -> ParallelSegment:
 
         most_horizontal: float = 99.0
         p_segment: ParallelSegment = None
+        p_segment_touching_bbox: ParallelSegment = None
         for p in self.parallel_segments:
             try:
                 slope = p.segments_list[0].slope
+                assert len(p.segments_list) >= 2, "Parallel segment contains too low segment lines..."
             except IndexError:
-                print(f"Segment list contains no segments!. Parallel Segment containing faulty segment: 'n{p}")
+                print(
+                    f"Segment list contains too low or no segments!. Parallel Segment containing faulty segment: 'n{p}")
                 raise ValueError
+            if self.check_p_seg_coincide_bbox(p) or \
+                    self.check_p_seg_coincide_bbox(p):
+                p_segment_touching_bbox = p
+                continue
+
             if slope < most_horizontal:
                 if not self.check_p_seg_coincide_bbox(p):
                     p_segment = p
                     most_horizontal = slope
 
-        assert p_segment is not None, "Something went wrong with parallel segment selection. Multiple parallel " \
-                                      "segments contains faulty segments. "
+        assert (p_segment is not None) or (p_segment_touching_bbox is not None), \
+            "Something went wrong with parallel segment selection. Multiple parallel " \
+            "segments contains faulty segment lines. "
+
+        if p_segment is None:
+            return p_segment_touching_bbox
+
         # if a parallel segment contains more than two parallel lines, merge sequential lines
         if len(p_segment.segments_list) > 2:
             print(f"Parallel segment contains more than two segments!")
             for s in p_segment.segments_list:
                 print(f"{s.__dict__}")
             # which segments have common point?
-            print()
             for i in range(len(p_segment.segments_list)):
                 s1 = p_segment.segments_list[i]
                 index_next = (i + 1) % (len(p_segment.segments_list))
@@ -401,6 +414,9 @@ class CardMaskProcessor:
                 if p_segment.segments_list[i].length == 0.0:
                     del p_segment.segments_list[i]
 
+        if p_segment_touching_bbox is not None:
+            if p.segments_list[0].slope > 1.0:
+                return p_segment_touching_bbox
         return p_segment
 
     def measure_mean_height_px(self, mark_to_image=None) -> float:
@@ -462,7 +478,7 @@ class CardMaskProcessor:
 
             cv2.line(mark_to_image, per_line_top_end, per_line_bottom_end, (0, 0, 255), 3)
             validation_height_px: float = math.sqrt((per_line_bottom_end[0] - per_line_top_end[0]) ** 2 +
-                                             (per_line_bottom_end[1] - per_line_top_end[1]) ** 2)
+                                                    (per_line_bottom_end[1] - per_line_top_end[1]) ** 2)
             print(f"Calculated height_px: {height_px}    -     Validation height_px: {validation_height_px}")
 
         print(f"Mean height of card in px: {height_px}")
