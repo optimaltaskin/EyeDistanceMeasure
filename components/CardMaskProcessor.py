@@ -75,6 +75,7 @@ class CardMaskProcessor:
             print(f"Warning! No mask found for file {self.image_filename}")
             raise NoMaskError
 
+        # self.min_slope_dif = 5
         self.min_slope_dif = 0.15
 
     def binary_to_grayscale(self):

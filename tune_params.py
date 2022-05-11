@@ -3,10 +3,10 @@ import shutil
 import glob
 import json
 
-conf_file_no_ext = "conf_template_m7"
+conf_file_no_ext = "conf_template_m14"
 file_path = f"configs/_optimal/{conf_file_no_ext}.py"
 target_conf_file_path = f"configs/_optimal/{conf_file_no_ext}_final.py"
-tuning_res_folder = "results/tuning_results/SGD/mask7"
+tuning_res_folder = "results/tuning_results/SGD/mask14/"
 
 NUMBER_OF_EPOCHS = 50
 EXCLUDE_ITER_JSON = "exclude_iters.json"
@@ -14,7 +14,7 @@ exclude_iter_json_path = f'{tuning_res_folder}{EXCLUDE_ITER_JSON}'
 
 bbone_list = [50]
 set_list = ["base_set"]
-mask_list = [7]
+mask_list = [14]
 lr_list = [0.001, 0.0001, 0.00001, 0.000001]
 weight_decay_list = [0.00001, 0.0001, 0.001]
 

@@ -13,19 +13,20 @@ model = dict(
             num_classes=1,
         ),
     ),
-    train_cfg=dict(
+    test_cfg=dict(
+        rpn=dict(
+            max_per_img=100, ),
         rcnn=dict(
-            mask_size=7,
-        ),
+            max_per_img=10, ),
     ),
 )
 dataset_type = 'COCODataset'
 classes = ('card',)
 log_config = dict(interval=4)
-checkpoint_config = dict(interval=12)
-# runner = dict(type='EpochBasedRunner', max_epochs=100)
+checkpoint_config = dict(interval=50)
+runner = dict(type='EpochBasedRunner', max_epochs=300)
 
-# optimizer = dict(type='AdamW', lr=0.0002, weight_decay=0.0001)
+optimizer = dict(_delete_=True, type='AdamW', lr=0.0001, weight_decay=0.0001)
 # optimizer_config = dict(grad_clip=None)
 
 data = dict(
