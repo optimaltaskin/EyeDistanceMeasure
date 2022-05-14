@@ -2,6 +2,7 @@ from datetime import datetime
 from mmcv.runner import load_checkpoint
 from mmdet.apis import inference_detector, show_result_pyplot
 from mmdet.models import build_detector
+from components.logger import init_logger
 from components.CardMaskProcessor import CardMaskProcessor
 from components.helpers import get_center_of_points, \
     get_distance_of_points, \
@@ -145,6 +146,7 @@ def measure_eye_distance(image, card_height_px, width, height, filename):
 
 
 def main():
+    init_logger()
     args = arguement_parse()
     config = args.conf_file
     checkpoint = args.check_file
