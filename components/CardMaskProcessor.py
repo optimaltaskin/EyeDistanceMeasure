@@ -1,11 +1,17 @@
+from mmdet.models import build_detector
+from mmcv.runner import load_checkpoint
+from mmdet.apis import inference_detector
+
 import math
 import random
 import numpy as np
 import cv2
 import os
 import logging
-
+import mmcv
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 # todo: implement a recursive algorith which will execute when no parallel lines were found.
 #  The algorithm will reduce parameters such as min_segment_length, and will also try smaller
 #  contours contained in self.hull_list. It will run until a calculation is done
@@ -64,39 +70,64 @@ class ParallelSegment:
 
 class CardMaskProcessor:
 
-    def __init__(self, inference: (), image_filename: str, threshold: int = 100, min_segment_length: float = 50.0):
-
-        self.inference: () = inference
-        self.image_filename: str = image_filename
+    def __init__(self, config: str, checkpoint: str):
+        logger.info("Card Mask Processor is being generated...")
+        self.inference: () = None
+        self.image_filename: str = None
         self.image = None
         self.grayscale_mask: [] = None
         self.contours: [] = None
         self.hierarchy = None
-        self.grayscale_threshold: int = threshold
+        self.grayscale_threshold: int = None
         self.hull_list: [] = None
         self.segments: [] = []
         self.parallel_segments: [] = []
+        self.min_segment_length = None
+        self.model = None
+
+        device = 'cuda:0'
+        config = mmcv.Config.fromfile(config)
+        config.model.pretrained = None
+        self.model = build_detector(config.model)
+        checkpoint = load_checkpoint(self.model, checkpoint, map_location=device)
+        self.model.CLASSES = checkpoint['meta']['CLASSES']
+        self.model.cfg = config
+        self.model.to(device)
+        self.model.eval()
+
+
+
+    def initialize(self, image_filename: str, threshold: int = 100, min_segment_length: float = 50.0):
+        logger.info("Initializing card mask processor")
+        self.inference: () = inference_detector(self.model, image_filename)
+        self.image_filename: str = image_filename
+        self.grayscale_threshold: int = threshold
         self.min_segment_length = min_segment_length
 
         try:
             self.mask = self.inference[1][0][0]
             self.bounding_box = self.inference[0][0]
         except IndexError:
-            logger.warning(f"Warning! No mask found for file {self.image_filename}")
+            logger.error(f"Warning! No mask found for file {self.image_filename}")
             raise NoMaskError
 
         self.min_slope_dif = 0.15
 
+        logger.info("Card mask processor initialization completed.")
+
     def binary_to_grayscale(self):
+        logger.info("Changing from binary to grayscale image")
         mask_np = (np.array(self.mask) * 255.0).astype('uint8')
         mask_stacked = np.stack((mask_np,) * 3, -1)
         self.grayscale_mask = cv2.cvtColor(mask_stacked, cv2.COLOR_BGR2GRAY)
 
     def define_contours(self):
+        logger.info("Drawing contours of mask.")
         ret, thresh_img = cv2.threshold(self.grayscale_mask, self.grayscale_threshold, 255, cv2.THRESH_BINARY)
         self.contours, self.hierarchy = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
     def create_convexhull(self, draw_contours: bool = True):
+        logger.info("Creating convex hull.")
         self.hull_list = []
         for i in range(len(self.contours)):
             hull = cv2.convexHull(self.contours[i])
@@ -116,16 +147,16 @@ class CardMaskProcessor:
 
     def generate_segments(self):
         # sort contours according to their areas. Biggest contour first
+        logger.info("Generating segments.")
         contours = sorted(self.hull_list, key=lambda x: cv2.contourArea(x), reverse=True)
         for i, h in enumerate(contours[0]):
-            logger.info("Generating segments...")
-            logger.info(f"Segment {i} of {len(contours) - 1}")
+            logger.debug(f"Segment {i} of {len(contours) - 1}")
             p1 = h[0]
             i2 = (i + 1) % (len(contours[0]))
             p2 = contours[0][i2][0]
             s = Segment([p1[0], p1[1]], [p2[0], p2[1]])
             self.segments.append(s)
-            logger.info(f"{i}: {p1}   {i2}: {p2}")
+            logger.debug(f"{i}: {p1}   {i2}: {p2}")
 
     def get_first_non_zero_length_index(self) -> int:
         for i, s in enumerate(self.segments):
@@ -142,9 +173,9 @@ class CardMaskProcessor:
         imshow_revised(image, title)
 
     def refine_by_similarity(self, display_refinement):
+        logger.info("Refining by similarity...")
         if display_refinement:
             image = self.image.copy()
-            image2 = self.image.copy()
             # mark all points for debugging purpose
             for t, i in enumerate(self.segments):
                 color = (255, 0, 0)
@@ -163,14 +194,14 @@ class CardMaskProcessor:
                 continue
 
             slope_dif = abs(s1.slope - s2.slope)
-            logger.info(f"i1: {i}   and     i2: {index_next}")
-            logger.info(f"Slopes diff: {slope_dif}     Min slope dif: {self.min_slope_dif}")
+            logger.debug("i1: {i}   and     i2: {index_next}")
+            logger.debug(f"Slopes diff: {slope_dif}     Min slope dif: {self.min_slope_dif}")
             if slope_dif < self.min_slope_dif:
-                logger.info(f"segment no: {i} will be deleted.")
-                logger.info(
-                    f"Changing seg#{index_next}'s point1 from {self.segments[index_next].point1} to {self.segments[i].point1}")
-                logger.info(f"segment {i} data was: {self.segments[i].__dict__}")
-                logger.info(f"segment {index_next} data was: {self.segments[index_next].__dict__}")
+                logger.debug(f"segment no: {i} will be deleted.")
+                logger.debug(f"Changing seg#{index_next}'s point1 from {self.segments[index_next].point1} to "
+                             f"{self.segments[i].point1}")
+                logger.debug(f"segment {i} data was: {self.segments[i].__dict__}")
+                logger.debug(f"segment {index_next} data was: {self.segments[index_next].__dict__}")
                 self.segments[index_next].point1 = self.segments[i].point1
                 self.segments[index_next].calculate_properties()
                 self.segments[i].length = 0.0
@@ -190,7 +221,7 @@ class CardMaskProcessor:
             imshow_revised(image, 'Segment Points')
 
     def refine_by_length(self, display_refinement: bool):
-
+        logger.info("Refining by length...")
         # filter segments by length
         delete_items: [] = []
         for i, s in enumerate(self.segments):
@@ -205,51 +236,6 @@ class CardMaskProcessor:
         if display_refinement:
             self.draw_segments(title='Segment Lines - Refinement by length')
 
-    def refine_coinciding_with_bounding_box(self, result_to_image, display_refinement: bool = False):
-
-        delete_items: [] = []
-        # bounding box
-        left = int(self.bounding_box[0][0])
-        top = int(self.bounding_box[0][1])
-        right = int(self.bounding_box[0][2])
-        bottom = int(self.bounding_box[0][3])
-        if result_to_image is not None:
-            cv2.circle(result_to_image, (left, top), 3, (0, 255, 0), thickness=-1)
-            cv2.circle(result_to_image, (left, bottom), 3, (0, 255, 0), thickness=-1)
-            cv2.circle(result_to_image, (right, top), 3, (0, 255, 0), thickness=-1)
-            cv2.circle(result_to_image, (right, bottom), 3, (0, 255, 0), thickness=-1)
-
-        # apply a margin for bounding box filter
-        top += 1
-        bottom -= 1
-        left += 1
-        right -= 1
-
-        for i, s in enumerate(self.segments):
-            # logger.info(f"Point1: {s.point1}")
-            # logger.info(f"Point2: {s.point2}")
-            # logger.info(f"Top: {top}")
-            # logger.info(f"Bottom: {bottom}")
-            # logger.info(f"Left: {left}")
-            # logger.info(f"Right: {right}")
-
-            if s.point1[1] == s.point2[1]:
-                if s.point1[1] <= top or s.point1[1] >= bottom:
-                    logger.info(f"Deleting segment coinciding with bbox: {s.__dict__}")
-                    delete_items.append(i)
-            elif s.point1[0] == s.point2[0]:
-                if s.point1[0] <= left or s.point1[0] >= right:
-                    logger.info(f"Deleting segment coinciding with bbox: {s.__dict__}")
-                    delete_items.append(i)
-
-        delete_items.sort(reverse=True)
-        for i in delete_items:
-            del self.segments[i]
-
-        # draw segments
-        if display_refinement:
-            self.draw_segments('Segment Lines - Refinement by Bounding box')
-
     def is_segment_processed(self, segment: Segment) -> bool:
         for p in self.parallel_segments:
             if p.contains_segment(segment):
@@ -257,12 +243,13 @@ class CardMaskProcessor:
         return False
 
     def match_parallel_lines(self, save_result: bool, result_to_image):
+        logger.info("Matching parallel lines...")
         for i, s in enumerate(self.segments):
             remaining_segments = self.segments.copy()
             remaining_segments.pop(i)
             parallel_s = ParallelSegment()
             parallel_s.add_segment(s)
-            logger.info(f"Processing segment:\n{s.__dict__}")
+            logger.debug(f"Processing segment:\n{s.__dict__}")
 
             # is the segment processed before?
             if self.is_segment_processed(s):
@@ -270,16 +257,16 @@ class CardMaskProcessor:
 
             for rem_segment in remaining_segments:
                 slope_dif = abs(s.slope - rem_segment.slope)
-                logger.info(f"Slope difference is {slope_dif}")
+                logger.debug(f"Slope difference is {slope_dif}")
                 # multiplication below is required to prevent adding more than two segments in the
                 # parallel segments list
                 if slope_dif < self.min_slope_dif * 0.95:
-                    logger.info(f"Parallel segment found.")
-                    logger.info(f"Other seg: {rem_segment.__dict__}")
+                    logger.debug(f"Parallel segment found.")
+                    logger.debug(f"Other seg: {rem_segment.__dict__}")
                     parallel_s.add_segment(rem_segment)
 
             if parallel_s.len_segments() > 1:
-                logger.info("Adding parallel segments.")
+                logger.debug("Adding parallel segments.")
                 self.parallel_segments.append(parallel_s)
 
         if save_result:
@@ -294,7 +281,7 @@ class CardMaskProcessor:
 
             for p in self.parallel_segments:
                 color = (r(), r(), r())
-                logger.info(f"Parallel segment:\n{p.__dict__}")
+                logger.debug(f"Parallel segment:\n{p.__dict__}")
 
                 for s in p.segments_list:
                     cv2.line(image_parallel, s.point1, s.point2, color, 2)
@@ -318,7 +305,7 @@ class CardMaskProcessor:
 
     def find_card_top_and_bottom(self, display_refinement: bool = False, save_result: bool = False,
                                  result_to_image=None):
-
+        logger.info("Trying to define card top and bottom edges...")
         self.generate_segments()
         if display_refinement:
             self.image = cv2.imread(self.image_filename)
@@ -332,7 +319,7 @@ class CardMaskProcessor:
             cv2.destroyAllWindows()
 
     def check_p_seg_coincide_bbox(self, p: ParallelSegment) -> bool:
-        # result = True
+        logger.info("Checking if parallel segment coincides with bounding box")
         left = int(self.bounding_box[0][0]) + 1
         top = int(self.bounding_box[0][1]) + 1
         right = int(self.bounding_box[0][2]) - 1
@@ -347,7 +334,7 @@ class CardMaskProcessor:
         return False
 
     def select_parallel_segment(self) -> ParallelSegment:
-
+        logger.info("Selecting strongest candidate for card top and bottom edges among parallel segments...")
         most_horizontal: float = 99.0
         p_segment: ParallelSegment = None
         p_segment_touching_bbox: ParallelSegment = None
@@ -356,8 +343,8 @@ class CardMaskProcessor:
                 slope = p.segments_list[0].slope
                 assert len(p.segments_list) >= 2, "Parallel segment contains too low segment lines..."
             except IndexError:
-                logger.info(
-                    f"Segment list contains too low or no segments!. Parallel Segment containing faulty segment: 'n{p}")
+                logger.warning(f"Segment list contains too low or no segments!. Parallel Segment "
+                               f"containing faulty segment: 'n{p}")
                 raise ValueError
             if self.check_p_seg_coincide_bbox(p) or \
                     self.check_p_seg_coincide_bbox(p):
@@ -387,12 +374,12 @@ class CardMaskProcessor:
                 index_next = (i + 1) % (len(p_segment.segments_list))
                 s2 = p_segment.segments_list[index_next]
                 if s1.point2 == s2.point1:
-                    logger.info(f"Merging segments: \n{s1.__dict__}\n{s2.__dict__}")
+                    logger.debug(f"Merging segments: \n{s1.__dict__}\n{s2.__dict__}")
                     p_segment.segments_list[index_next].point1 = p_segment.segments_list[i].point1
                     p_segment.segments_list[index_next].calculate_properties()
                     p_segment.segments_list[i].length = 0.0
                 elif s1.point1 == s2.point2:
-                    logger.info(f"Merging segments: \n{s1.__dict__}\n{s2.__dict__}")
+                    logger.debug(f"Merging segments: \n{s1.__dict__}\n{s2.__dict__}")
                     p_segment.segments_list[index_next].point2 = p_segment.segments_list[i].point2
                     p_segment.segments_list[index_next].calculate_properties()
                     p_segment.segments_list[i].length = 0.0
@@ -407,7 +394,7 @@ class CardMaskProcessor:
         return p_segment
 
     def measure_mean_height_px(self, mark_to_image=None) -> float:
-
+        logger.info("Measuring mean height between top and bottom edges in pixels")
         assert len(self.parallel_segments) != 0, "No parallel segments were formed!"
 
         height_px = 0.0
@@ -449,13 +436,13 @@ class CardMaskProcessor:
                 per_line_bottom_end = (per_line_top_end[0], per_line_top_end[1] + int(height_px))
             else:
                 slope_perpendicular_line = - 1 / seg_slope
-                logger.info(f"Segment slope: {seg_slope}   -    Perpendicular line slope: {slope_perpendicular_line}")
+                logger.debug(f"Segment slope: {seg_slope}   -    Perpendicular line slope: {slope_perpendicular_line}")
                 # normalize slope vector
                 slope_vector = (1, slope_perpendicular_line)
                 magnitude = math.sqrt(slope_vector[0] * slope_vector[0] +
                                       slope_vector[1] * slope_vector[1])
                 normalized_slope = (slope_vector[0] / magnitude, slope_vector[1] / magnitude)
-                logger.info(f"Normalized slope vector: {normalized_slope}")
+                logger.debug(f"Normalized slope vector: {normalized_slope}")
                 if normalized_slope[1] >= 0.0:
                     per_line_bottom_end = (int(height_px * normalized_slope[0] + per_line_top_end[0]),
                                            (int(height_px * normalized_slope[1] + per_line_top_end[1])))
@@ -466,9 +453,7 @@ class CardMaskProcessor:
             cv2.line(mark_to_image, per_line_top_end, per_line_bottom_end, (0, 0, 255), 3)
             validation_height_px: float = math.sqrt((per_line_bottom_end[0] - per_line_top_end[0]) ** 2 +
                                                     (per_line_bottom_end[1] - per_line_top_end[1]) ** 2)
-            print(f"Calculated height_px: {height_px}    -     Validation height_px: {validation_height_px}")
             logger.info(f"Calculated height_px: {height_px}    -     Validation height_px: {validation_height_px}")
 
         logger.info(f"Mean height of card in px: {height_px}")
-        print(f"Mean height of card in px: {height_px}")
         return height_px

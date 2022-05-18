@@ -1,6 +1,10 @@
 import os
 import math
+import logging
+import cv2
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 class Point:
     def __init__(self, x: int, y: int):
@@ -29,3 +33,16 @@ def get_center_of_points(landmarks: [], image_shape: ()) -> (int, int):
 
 def get_distance_of_points(point1: Point, point2: Point):
     return math.sqrt(math.fabs(point1.x - point2.x) ** 2 + math.fabs(point1.y - point2.y) ** 2)
+
+
+def get_distance_of_points_tuple(point1: Point, point2: Point):
+    return math.sqrt(math.fabs(point1[0] - point2[0]) ** 2 + math.fabs(point1[1] - point2[1]) ** 2)
+
+
+def load_image(img: str):
+    try:
+        image = cv2.imread(img)
+        return image
+    except:
+        logger.info(f"Image file not found! File name: {img}")
+        exit()
