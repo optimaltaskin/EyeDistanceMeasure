@@ -42,6 +42,7 @@ def arguement_parse():
 
 def measure_eye_distance(image, card_height_px, width, height, filename):
     facial_features = FacialFeaturesExtractor(image)
+
     facial_features.mark_features()
     pupils_distance_pixels = facial_features.get_pupils_distance()
 
@@ -96,6 +97,7 @@ def main():
 
         if filename.endswith(".jpg"):
 
+
             if args.image_file != "":
                 full_path = args.image_file
                 args.single_step = True
@@ -146,7 +148,7 @@ def main():
                 continue
             try:
                 measure_eye_distance(image, card_height_px, width, height, full_path)
-            except ValueError:
+            except:
                 logger.warning(f"Face not detected for file {full_path}")
                 with open(f"{target_folder}failed_files.txt", "a") as text_file:
                     text_file.write(f"{filename} - Face not detected!\n")

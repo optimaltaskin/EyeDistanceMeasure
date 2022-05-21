@@ -24,8 +24,8 @@ log_config = dict(interval=4, hooks=[dict(type='TextLoggerHook')])
 checkpoint_config = dict(interval={EPOCH})
 runner = dict(type='EpochBasedRunner', max_epochs={EPOCH})
 
-optimizer = dict(type='SGD', lr={LEARNING_RATE}, weight_decay={WEIGHT_DECAY})
-# optimizer = dict(_delete_=True, type='AdamW', lr={LEARNING_RATE}, weight_decay={WEIGHT_DECAY})
+# optimizer = dict(type='SGD', lr={LEARNING_RATE}, weight_decay={WEIGHT_DECAY})
+optimizer = dict(_delete_=True, type='AdamW', lr={LEARNING_RATE}, weight_decay={WEIGHT_DECAY})
 optimizer_config = dict(grad_clip=None)
 
 data = dict(

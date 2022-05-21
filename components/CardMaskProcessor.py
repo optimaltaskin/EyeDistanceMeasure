@@ -10,7 +10,7 @@ import os
 import logging
 import mmcv
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # todo: implement a recursive algorith which will execute when no parallel lines were found.
 #  The algorithm will reduce parameters such as min_segment_length, and will also try smaller
@@ -26,7 +26,7 @@ class NoMaskError(Exception):
 
 
 r = lambda: random.randint(0, 255)
-
+VERTICAL_SLOPE = 9999.0
 
 def imshow_revised(image, title: str):
     cv2.namedWindow(title, cv2.WINDOW_KEEPRATIO)
@@ -46,7 +46,7 @@ class Segment:
     def calculate_properties(self):
         self.length = math.dist(self.point1, self.point2)
         if abs(self.point2[0] - self.point1[0]) < 0.01:
-            self.slope = 9999.0
+            self.slope = VERTICAL_SLOPE
         else:
             self.slope = (self.point2[1] - self.point1[1]) / (self.point2[0] - self.point1[0])
 
@@ -80,8 +80,8 @@ class CardMaskProcessor:
         self.hierarchy = None
         self.grayscale_threshold: int = None
         self.hull_list: [] = None
-        self.segments: [] = []
-        self.parallel_segments: [] = []
+        self.segments: [] = None
+        self.parallel_segments: [] = None
         self.min_segment_length = None
         self.model = None
 
@@ -113,6 +113,12 @@ class CardMaskProcessor:
 
         self.min_slope_dif = 0.15
 
+        # lines below delete any previously processed data. Otherwise, with each new processed file, previous data is
+        # concatenated with new results
+        self.hull_list: [] = []
+        self.segments: [] = []
+        self.parallel_segments: [] = []
+        self.contours: [] = []
         logger.info("Card mask processor initialization completed.")
 
     def binary_to_grayscale(self):
@@ -253,6 +259,9 @@ class CardMaskProcessor:
 
             # is the segment processed before?
             if self.is_segment_processed(s):
+                continue
+
+            if s.slope == VERTICAL_SLOPE:
                 continue
 
             for rem_segment in remaining_segments:

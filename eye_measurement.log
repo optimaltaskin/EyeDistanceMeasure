@@ -1,270 +1,208 @@
-2022-05-18 12:16:20,339 INFO     components.CardMaskProcessor                       70    Initializing card mask processor
-2022-05-18 12:16:20,339 INFO     components.CardMaskProcessor                       92    Card mask processor initialization completed.
-2022-05-18 12:16:20,339 INFO     components.CardMaskProcessor                       95    Changing from binary to grayscale image
-2022-05-18 12:16:20,350 INFO     components.CardMaskProcessor                       101   Drawing contours of mask.
-2022-05-18 12:16:20,351 INFO     components.CardMaskProcessor                       106   Creating convex hull.
-2022-05-18 12:16:20,351 INFO     components.CardMaskProcessor                       284   Trying to define card top and bottom edges...
-2022-05-18 12:16:20,351 INFO     components.CardMaskProcessor                       126   Generating segments.
-2022-05-18 12:16:20,355 INFO     components.CardMaskProcessor                       152   Refining by similarity...
-2022-05-18 12:16:20,355 INFO     components.CardMaskProcessor                       200   Refining by length...
-2022-05-18 12:16:20,355 INFO     components.CardMaskProcessor                       222   Matching parallel lines...
-2022-05-18 12:16:21,308 INFO     components.CardMaskProcessor                       373   Measuring mean height between top and bottom edges in pixels
-2022-05-18 12:16:21,308 INFO     components.CardMaskProcessor                       313   Selecting strongest candidate for card top and bottom edges among parallel segments...
-2022-05-18 12:16:21,308 INFO     components.CardMaskProcessor                       298   Checking if parallel segment coincides with bounding box
-2022-05-18 12:16:21,308 INFO     components.CardMaskProcessor                       298   Checking if parallel segment coincides with bounding box
-2022-05-18 12:16:21,308 INFO     components.CardMaskProcessor                       298   Checking if parallel segment coincides with bounding box
-2022-05-18 12:16:21,308 INFO     components.CardMaskProcessor                       402   Distance from point (991, 392) to segment line is:
-174.58200374073064
-2022-05-18 12:16:21,309 INFO     components.CardMaskProcessor                       402   Distance from point (984, 566) to segment line is:
-173.2868970019556
-2022-05-18 12:16:21,309 INFO     components.CardMaskProcessor                       432   Calculated height_px: 173.93445037134313    -     Validation height_px: 173.80736463107655
-2022-05-18 12:16:21,309 INFO     components.CardMaskProcessor                       434   Mean height of card in px: 173.93445037134313
-2022-05-18 12:16:47,406 INFO     components.CardMaskProcessor                       70    Initializing card mask processor
-2022-05-18 12:16:47,406 INFO     components.CardMaskProcessor                       92    Card mask processor initialization completed.
-2022-05-18 12:16:47,407 INFO     components.CardMaskProcessor                       95    Changing from binary to grayscale image
-2022-05-18 12:16:47,419 INFO     components.CardMaskProcessor                       101   Drawing contours of mask.
-2022-05-18 12:16:47,420 INFO     components.CardMaskProcessor                       106   Creating convex hull.
-2022-05-18 12:16:47,420 INFO     components.CardMaskProcessor                       284   Trying to define card top and bottom edges...
-2022-05-18 12:16:47,421 INFO     components.CardMaskProcessor                       126   Generating segments.
-2022-05-18 12:16:47,421 DEBUG    components.CardMaskProcessor                       129   Segment 0 of 0
-2022-05-18 12:16:47,421 DEBUG    components.CardMaskProcessor                       135   0: [943 385]   1: [954 386]
-2022-05-18 12:16:47,421 DEBUG    components.CardMaskProcessor                       129   Segment 1 of 0
-2022-05-18 12:16:47,421 DEBUG    components.CardMaskProcessor                       135   1: [954 386]   2: [998 392]
-2022-05-18 12:16:47,421 DEBUG    components.CardMaskProcessor                       129   Segment 2 of 0
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       135   2: [998 392]   3: [1040  399]
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       129   Segment 3 of 0
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       135   3: [1040  399]   4: [1043  400]
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       129   Segment 4 of 0
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       135   4: [1043  400]   5: [1045  401]
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       129   Segment 5 of 0
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       135   5: [1045  401]   6: [1062  451]
-2022-05-18 12:16:47,422 DEBUG    components.CardMaskProcessor                       129   Segment 6 of 0
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       135   6: [1062  451]   7: [1062  456]
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       129   Segment 7 of 0
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       135   7: [1062  456]   8: [1043  568]
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       129   Segment 8 of 0
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       135   8: [1043  568]   9: [1042  569]
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       129   Segment 9 of 0
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       135   9: [1042  569]   10: [1037  570]
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       129   Segment 10 of 0
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       135   10: [1037  570]   11: [1016  570]
-2022-05-18 12:16:47,423 DEBUG    components.CardMaskProcessor                       129   Segment 11 of 0
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       135   11: [1016  570]   12: [943 565]
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       129   Segment 12 of 0
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       135   12: [943 565]   13: [936 564]
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       129   Segment 13 of 0
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       135   13: [936 564]   14: [931 563]
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       129   Segment 14 of 0
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       135   14: [931 563]   15: [925 560]
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       129   Segment 15 of 0
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       135   15: [925 560]   16: [923 558]
-2022-05-18 12:16:47,424 DEBUG    components.CardMaskProcessor                       129   Segment 16 of 0
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       135   16: [923 558]   17: [922 556]
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       129   Segment 17 of 0
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       135   17: [922 556]   18: [921 550]
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       129   Segment 18 of 0
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       135   18: [921 550]   19: [921 540]
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       129   Segment 19 of 0
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       135   19: [921 540]   20: [924 424]
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       129   Segment 20 of 0
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       135   20: [924 424]   21: [925 392]
-2022-05-18 12:16:47,425 DEBUG    components.CardMaskProcessor                       129   Segment 21 of 0
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       135   21: [925 392]   22: [927 388]
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       129   Segment 22 of 0
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       135   22: [927 388]   23: [928 387]
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       129   Segment 23 of 0
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       135   23: [928 387]   24: [930 386]
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       129   Segment 24 of 0
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       135   24: [930 386]   25: [933 385]
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       129   Segment 25 of 0
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       135   25: [933 385]   0: [943 385]
-2022-05-18 12:16:47,426 INFO     components.CardMaskProcessor                       152   Refining by similarity...
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,426 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.04545454545454544     Min slope dif: 0.15
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       176   segment no: 0 will be deleted.
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       177   Changing seg#1's point1 from [954, 386] to [943, 385]
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       179   segment 0 data was: {'length': 11.045361017187261, 'slope': 0.09090909090909091, 'point1': [943, 385], 'point2': [954, 386]}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       180   segment 1 data was: {'length': 44.40720662234904, 'slope': 0.13636363636363635, 'point1': [954, 386], 'point2': [998, 392]}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.0393939393939394     Min slope dif: 0.15
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       176   segment no: 1 will be deleted.
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       177   Changing seg#2's point1 from [998, 392] to [943, 385]
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       179   segment 1 data was: {'length': 55.44366510251645, 'slope': 0.12727272727272726, 'point1': [943, 385], 'point2': [998, 392]}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       180   segment 2 data was: {'length': 42.57933771208753, 'slope': 0.16666666666666666, 'point1': [998, 392], 'point2': [1040, 399]}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.18900343642611683     Min slope dif: 0.15
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.16666666666666669     Min slope dif: 0.15
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 2.4411764705882355     Min slope dif: 0.15
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 9996.058823529413     Min slope dif: 0.15
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 10004.894736842105     Min slope dif: 0.15
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,427 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 4.894736842105263     Min slope dif: 0.15
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.8     Min slope dif: 0.15
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.2     Min slope dif: 0.15
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.0684931506849315     Min slope dif: 0.15
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       176   segment no: 10 will be deleted.
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       177   Changing seg#11's point1 from [1016, 570] to [1037, 570]
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       179   segment 10 data was: {'length': 21.0, 'slope': -0.0, 'point1': [1037, 570], 'point2': [1016, 570]}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       180   segment 11 data was: {'length': 73.17103251970687, 'slope': 0.0684931506849315, 'point1': [1016, 570], 'point2': [943, 565]}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.08966565349544073     Min slope dif: 0.15
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       176   segment no: 11 will be deleted.
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       177   Changing seg#12's point1 from [943, 565] to [1037, 570]
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       179   segment 11 data was: {'length': 94.13288479590966, 'slope': 0.05319148936170213, 'point1': [1037, 570], 'point2': [943, 565]}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       180   segment 12 data was: {'length': 7.0710678118654755, 'slope': 0.14285714285714285, 'point1': [943, 565], 'point2': [936, 564]}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.1405940594059406     Min slope dif: 0.15
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       176   segment no: 12 will be deleted.
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       177   Changing seg#13's point1 from [936, 564] to [1037, 570]
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       179   segment 12 data was: {'length': 101.17806086301515, 'slope': 0.0594059405940594, 'point1': [1037, 570], 'point2': [936, 564]}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       180   segment 13 data was: {'length': 5.099019513592785, 'slope': 0.2, 'point1': [936, 564], 'point2': [931, 563]}
-2022-05-18 12:16:47,428 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.4339622641509434     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.5     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 1.0     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 4.0     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 9993.0     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 10037.666666666666     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 6.666666666666664     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 30.0     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 1.0     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.5     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.16666666666666669     Min slope dif: 0.15
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       173   i1: {i}   and     i2: {index_next}
-2022-05-18 12:16:47,429 DEBUG    components.CardMaskProcessor                       174   Slopes diff: 0.3333333333333333     Min slope dif: 0.15
-2022-05-18 12:16:47,429 INFO     components.CardMaskProcessor                       200   Refining by length...
-2022-05-18 12:16:47,430 INFO     components.CardMaskProcessor                       222   Matching parallel lines...
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       228   Processing segment:
-{'length': 98.00510190801295, 'slope': 0.14432989690721648, 'point1': [943, 385], 'point2': [1040, 399]}
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 2.796846573681019
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 6.03906673901248
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 0.07829216105815988
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       240   Parallel segment found.
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       241   Other seg: {'length': 106.23088063270491, 'slope': 0.0660377358490566, 'point1': [1037, 570], 'point2': [931, 563]}
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 38.81099656357388
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       245   Adding parallel segments.
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       228   Processing segment:
-{'length': 52.810983706043565, 'slope': 2.9411764705882355, 'point1': [1045, 401], 'point2': [1062, 451]}
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 2.796846573681019
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 8.8359133126935
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 2.875138734739179
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 41.6078431372549
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       228   Processing segment:
-{'length': 113.60017605620159, 'slope': -5.894736842105263, 'point1': [1062, 456], 'point2': [1043, 568]}
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 6.03906673901248
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 8.8359133126935
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 5.96077457795432
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 32.771929824561404
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       228   Processing segment:
-{'length': 106.23088063270491, 'slope': 0.0660377358490566, 'point1': [1037, 570], 'point2': [931, 563]}
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       228   Processing segment:
-{'length': 116.03878661895773, 'slope': -38.666666666666664, 'point1': [921, 540], 'point2': [924, 424]}
-2022-05-18 12:16:47,430 DEBUG    components.CardMaskProcessor                       236   Slope difference is 38.81099656357388
-2022-05-18 12:16:47,431 DEBUG    components.CardMaskProcessor                       236   Slope difference is 41.6078431372549
-2022-05-18 12:16:47,431 DEBUG    components.CardMaskProcessor                       236   Slope difference is 32.771929824561404
-2022-05-18 12:16:47,431 DEBUG    components.CardMaskProcessor                       236   Slope difference is 38.73270440251572
-2022-05-18 12:16:47,431 DEBUG    components.CardMaskProcessor                       260   Parallel segment:
-{'segments_list': [<components.CardMaskProcessor.Segment object at 0x7ff6ce62b7f0>, <components.CardMaskProcessor.Segment object at 0x7ff6c442a790>]}
-2022-05-18 12:16:48,373 INFO     components.CardMaskProcessor                       373   Measuring mean height between top and bottom edges in pixels
-2022-05-18 12:16:48,373 INFO     components.CardMaskProcessor                       313   Selecting strongest candidate for card top and bottom edges among parallel segments...
-2022-05-18 12:16:48,373 INFO     components.CardMaskProcessor                       298   Checking if parallel segment coincides with bounding box
-2022-05-18 12:16:48,373 INFO     components.CardMaskProcessor                       298   Checking if parallel segment coincides with bounding box
-2022-05-18 12:16:48,373 INFO     components.CardMaskProcessor                       298   Checking if parallel segment coincides with bounding box
-2022-05-18 12:16:48,374 INFO     components.CardMaskProcessor                       402   Distance from point (991, 392) to segment line is:
-174.58200374073064
-2022-05-18 12:16:48,374 INFO     components.CardMaskProcessor                       402   Distance from point (984, 566) to segment line is:
-173.2868970019556
-2022-05-18 12:16:48,374 DEBUG    components.CardMaskProcessor                       415   Segment slope: 0.14432989690721648   -    Perpendicular line slope: -6.928571428571429
-2022-05-18 12:16:48,374 DEBUG    components.CardMaskProcessor                       421   Normalized slope vector: (0.14284970606061229, -0.9897443919913851)
-2022-05-18 12:16:48,374 INFO     components.CardMaskProcessor                       432   Calculated height_px: 173.93445037134313    -     Validation height_px: 173.80736463107655
-2022-05-18 12:16:48,374 INFO     components.CardMaskProcessor                       434   Mean height of card in px: 173.93445037134313
-2022-05-18 14:53:42,138 INFO     __main__                                           99    Processing file: data/result_validation/57.jpg
-2022-05-18 14:57:45,031 INFO     __main__                                           99    Processing file: data/result_validation/57.jpg
-2022-05-18 14:57:45,100 INFO     components.CardMaskProcessor                       98    Initializing card mask processor
-2022-05-18 14:57:45,469 INFO     components.CardMaskProcessor                       113   Card mask processor initialization completed.
-2022-05-18 14:59:15,654 INFO     __main__                                           99    Processing file: data/result_validation/57.jpg
-2022-05-18 14:59:15,720 INFO     components.CardMaskProcessor                       98    Initializing card mask processor
-2022-05-18 14:59:15,952 INFO     components.CardMaskProcessor                       113   Card mask processor initialization completed.
-2022-05-18 15:00:21,882 INFO     components.CardMaskProcessor                       74    Card Mask Processor is being generated...
-2022-05-18 15:00:25,427 INFO     __main__                                           99    Processing file: data/result_validation/57.jpg
-2022-05-18 15:00:25,495 INFO     components.CardMaskProcessor                       99    Initializing card mask processor
-2022-05-18 15:00:25,723 INFO     components.CardMaskProcessor                       114   Card mask processor initialization completed.
-2022-05-18 15:01:45,910 INFO     components.CardMaskProcessor                       74    Card Mask Processor is being generated...
-2022-05-18 15:01:49,415 INFO     __main__                                           99    Processing file: data/result_validation/57.jpg
-2022-05-18 15:01:49,483 INFO     components.CardMaskProcessor                       103   Initializing card mask processor
-2022-05-18 15:01:49,706 INFO     components.CardMaskProcessor                       118   Card mask processor initialization completed.
-2022-05-18 15:03:21,670 INFO     components.CardMaskProcessor                       74    Card Mask Processor is being generated...
-2022-05-18 15:03:25,238 INFO     __main__                                           99    Processing file: data/result_validation/57.jpg
-2022-05-18 15:03:25,306 INFO     components.CardMaskProcessor                       101   Initializing card mask processor
-2022-05-18 15:03:25,527 INFO     components.CardMaskProcessor                       116   Card mask processor initialization completed.
-2022-05-18 15:03:25,528 INFO     __main__                                           112   Mask processor object: None
-2022-05-18 15:04:26,769 INFO     components.CardMaskProcessor                       74    Card Mask Processor is being generated...
-2022-05-18 15:04:30,314 INFO     __main__                                           98    Processing file: data/result_validation/57.jpg
-2022-05-18 15:04:30,383 INFO     components.CardMaskProcessor                       101   Initializing card mask processor
-2022-05-18 15:04:30,621 INFO     components.CardMaskProcessor                       116   Card mask processor initialization completed.
-2022-05-18 15:04:30,622 INFO     __main__                                           111   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7fa87f1463a0>
-2022-05-18 15:04:30,622 INFO     components.CardMaskProcessor                       119   Changing from binary to grayscale image
-2022-05-18 15:04:30,659 INFO     components.CardMaskProcessor                       125   Drawing contours of mask.
-2022-05-18 15:04:30,695 INFO     components.CardMaskProcessor                       130   Creating convex hull.
-2022-05-18 15:04:30,696 INFO     components.CardMaskProcessor                       308   Trying to define card top and bottom edges...
-2022-05-18 15:04:30,696 INFO     components.CardMaskProcessor                       150   Generating segments.
-2022-05-18 15:04:30,710 INFO     components.CardMaskProcessor                       176   Refining by similarity...
-2022-05-18 15:04:30,710 INFO     components.CardMaskProcessor                       224   Refining by length...
-2022-05-18 15:04:30,710 INFO     components.CardMaskProcessor                       246   Matching parallel lines...
-2022-05-18 15:04:31,945 INFO     components.CardMaskProcessor                       397   Measuring mean height between top and bottom edges in pixels
-2022-05-18 15:04:31,945 INFO     components.CardMaskProcessor                       337   Selecting strongest candidate for card top and bottom edges among parallel segments...
-2022-05-18 15:04:31,945 INFO     components.CardMaskProcessor                       322   Checking if parallel segment coincides with bounding box
-2022-05-18 15:04:31,945 INFO     components.CardMaskProcessor                       322   Checking if parallel segment coincides with bounding box
-2022-05-18 15:04:31,945 INFO     components.CardMaskProcessor                       322   Checking if parallel segment coincides with bounding box
-2022-05-18 15:04:31,946 INFO     components.CardMaskProcessor                       426   Distance from point (991, 392) to segment line is:
-174.58200374073064
-2022-05-18 15:04:31,946 INFO     components.CardMaskProcessor                       426   Distance from point (984, 566) to segment line is:
-173.2868970019556
-2022-05-18 15:04:31,946 INFO     components.CardMaskProcessor                       456   Calculated height_px: 173.93445037134313    -     Validation height_px: 173.80736463107655
-2022-05-18 15:04:31,946 INFO     components.CardMaskProcessor                       458   Mean height of card in px: 173.93445037134313
-2022-05-18 15:04:32,446 INFO     __main__                                           152   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/mask7_100epoch/57--18-05-2022.jpg
-2022-05-18 15:09:40,022 INFO     components.CardMaskProcessor                       74    Card Mask Processor is being generated...
-2022-05-18 15:09:43,759 INFO     __main__                                           105   Processing file: data/result_validation/57.jpg
-2022-05-18 15:09:43,828 INFO     components.CardMaskProcessor                       101   Initializing card mask processor
-2022-05-18 15:09:44,059 INFO     components.CardMaskProcessor                       116   Card mask processor initialization completed.
-2022-05-18 15:09:44,059 INFO     __main__                                           118   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7fdb23c22a00>
-2022-05-18 15:09:44,059 INFO     components.CardMaskProcessor                       119   Changing from binary to grayscale image
-2022-05-18 15:09:44,070 INFO     components.CardMaskProcessor                       125   Drawing contours of mask.
-2022-05-18 15:09:44,072 INFO     components.CardMaskProcessor                       130   Creating convex hull.
-2022-05-18 15:09:44,072 INFO     components.CardMaskProcessor                       308   Trying to define card top and bottom edges...
-2022-05-18 15:09:44,073 INFO     components.CardMaskProcessor                       150   Generating segments.
-2022-05-18 15:09:44,075 INFO     components.CardMaskProcessor                       176   Refining by similarity...
-2022-05-18 15:09:44,076 INFO     components.CardMaskProcessor                       224   Refining by length...
-2022-05-18 15:09:44,076 INFO     components.CardMaskProcessor                       246   Matching parallel lines...
-2022-05-18 15:09:44,880 INFO     components.CardMaskProcessor                       397   Measuring mean height between top and bottom edges in pixels
-2022-05-18 15:09:44,880 INFO     components.CardMaskProcessor                       337   Selecting strongest candidate for card top and bottom edges among parallel segments...
-2022-05-18 15:09:44,880 INFO     components.CardMaskProcessor                       322   Checking if parallel segment coincides with bounding box
-2022-05-18 15:09:44,880 INFO     components.CardMaskProcessor                       322   Checking if parallel segment coincides with bounding box
-2022-05-18 15:09:44,880 INFO     components.CardMaskProcessor                       322   Checking if parallel segment coincides with bounding box
-2022-05-18 15:09:44,881 INFO     components.CardMaskProcessor                       426   Distance from point (991, 392) to segment line is:
-174.58200374073064
-2022-05-18 15:09:44,881 INFO     components.CardMaskProcessor                       426   Distance from point (984, 566) to segment line is:
-173.2868970019556
-2022-05-18 15:09:44,881 INFO     components.CardMaskProcessor                       456   Calculated height_px: 173.93445037134313    -     Validation height_px: 173.80736463107655
-2022-05-18 15:09:44,881 INFO     components.CardMaskProcessor                       458   Mean height of card in px: 173.93445037134313
-2022-05-18 15:09:44,941 INFO     __main__                                           70    mm_per_pixel: 0.31034679952565375
-2022-05-18 15:09:44,941 INFO     __main__                                           71    Pupils distance in px: 193.74725804511402
-2022-05-18 15:09:44,941 INFO     __main__                                           72    Pupils distance in mm: 60.12884145117211
-2022-05-18 15:09:44,941 INFO     __main__                                           159   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/mask7_100epoch/57--18-05-2022.jpg
+2022-05-21 15:14:27,649 INFO     components.CardMaskProcessor                       74    Card Mask Processor is being generated...
+2022-05-21 15:14:31,846 INFO     __main__                                           107   Processing file: data/result_validation/70.jpg
+2022-05-21 15:14:32,180 INFO     components.CardMaskProcessor                       101   Initializing card mask processor
+2022-05-21 15:14:32,739 INFO     components.CardMaskProcessor                       122   Card mask processor initialization completed.
+2022-05-21 15:14:32,739 INFO     __main__                                           120   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7fac3d8ad820>
+2022-05-21 15:14:32,739 INFO     components.CardMaskProcessor                       125   Changing from binary to grayscale image
+2022-05-21 15:14:32,802 INFO     components.CardMaskProcessor                       131   Drawing contours of mask.
+2022-05-21 15:14:32,813 INFO     components.CardMaskProcessor                       136   Creating convex hull.
+2022-05-21 15:14:32,814 INFO     components.CardMaskProcessor                       317   Trying to define card top and bottom edges...
+2022-05-21 15:14:32,814 INFO     components.CardMaskProcessor                       156   Generating segments.
+2022-05-21 15:14:32,814 DEBUG    components.CardMaskProcessor                       159   Segment 0 of 0
+2022-05-21 15:14:32,814 DEBUG    components.CardMaskProcessor                       165   0: [860 968]   1: [1340  971]
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       159   Segment 1 of 0
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       165   1: [1340  971]   2: [1350  973]
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       159   Segment 2 of 0
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       165   2: [1350  973]   3: [1353  974]
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       159   Segment 3 of 0
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       165   3: [1353  974]   4: [1357  976]
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       159   Segment 4 of 0
+2022-05-21 15:14:32,815 DEBUG    components.CardMaskProcessor                       165   4: [1357  976]   5: [1363  980]
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       159   Segment 5 of 0
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       165   5: [1363  980]   6: [1364  984]
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       159   Segment 6 of 0
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       165   6: [1364  984]   7: [1364 1114]
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       159   Segment 7 of 0
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       165   7: [1364 1114]   8: [1339 1391]
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       159   Segment 8 of 0
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       165   8: [1339 1391]   9: [1334 1430]
+2022-05-21 15:14:32,816 DEBUG    components.CardMaskProcessor                       159   Segment 9 of 0
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       165   9: [1334 1430]   10: [1333 1434]
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       159   Segment 10 of 0
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       165   10: [1333 1434]   11: [1331 1440]
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       159   Segment 11 of 0
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       165   11: [1331 1440]   12: [1330 1442]
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       159   Segment 12 of 0
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       165   12: [1330 1442]   13: [1325 1448]
+2022-05-21 15:14:32,817 DEBUG    components.CardMaskProcessor                       159   Segment 13 of 0
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       165   13: [1325 1448]   14: [1323 1449]
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       159   Segment 14 of 0
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       165   14: [1323 1449]   15: [1143 1449]
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       159   Segment 15 of 0
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       165   15: [1143 1449]   16: [ 924 1436]
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       159   Segment 16 of 0
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       165   16: [ 924 1436]   17: [ 912 1435]
+2022-05-21 15:14:32,818 DEBUG    components.CardMaskProcessor                       159   Segment 17 of 0
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       165   17: [ 912 1435]   18: [ 752 1420]
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       159   Segment 18 of 0
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       165   18: [ 752 1420]   19: [ 746 1419]
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       159   Segment 19 of 0
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       165   19: [ 746 1419]   20: [ 743 1418]
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       159   Segment 20 of 0
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       165   20: [ 743 1418]   21: [ 737 1415]
+2022-05-21 15:14:32,819 DEBUG    components.CardMaskProcessor                       159   Segment 21 of 0
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       165   21: [ 737 1415]   22: [ 735 1413]
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       159   Segment 22 of 0
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       165   22: [ 735 1413]   23: [ 735 1156]
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       159   Segment 23 of 0
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       165   23: [ 735 1156]   24: [762 971]
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       159   Segment 24 of 0
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       165   24: [762 971]   25: [763 970]
+2022-05-21 15:14:32,820 DEBUG    components.CardMaskProcessor                       159   Segment 25 of 0
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       165   25: [763 970]   26: [767 969]
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       159   Segment 26 of 0
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       165   26: [767 969]   27: [775 968]
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       159   Segment 27 of 0
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       165   27: [775 968]   0: [860 968]
+2022-05-21 15:14:32,821 INFO     components.CardMaskProcessor                       182   Refining by similarity...
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.19375     Min slope dif: 0.15
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.1333333333333333     Min slope dif: 0.15
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       206   segment no: 1 will be deleted.
+2022-05-21 15:14:32,821 DEBUG    components.CardMaskProcessor                       207   Changing seg#2's point1 from [1350, 973] to [1340, 971]
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       209   segment 1 data was: {'length': 10.19803902718557, 'slope': 0.2, 'point1': [1340, 971], 'point2': [1350, 973]}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       210   segment 2 data was: {'length': 3.1622776601683795, 'slope': 0.3333333333333333, 'point1': [1350, 973], 'point2': [1353, 974]}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.2692307692307692     Min slope dif: 0.15
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.16666666666666663     Min slope dif: 0.15
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 3.3333333333333335     Min slope dif: 0.15
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 9995.0     Min slope dif: 0.15
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 10010.08     Min slope dif: 0.15
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 3.2800000000000002     Min slope dif: 0.15
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,822 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 3.8     Min slope dif: 0.15
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 1.0     Min slope dif: 0.15
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 1.0     Min slope dif: 0.15
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.8     Min slope dif: 0.15
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.7     Min slope dif: 0.15
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.5     Min slope dif: 0.15
+2022-05-21 15:14:32,823 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.0593607305936073     Min slope dif: 0.15
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       206   segment no: 14 will be deleted.
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       207   Changing seg#15's point1 from [1143, 1449] to [1323, 1449]
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       209   segment 14 data was: {'length': 180.0, 'slope': -0.0, 'point1': [1323, 1449], 'point2': [1143, 1449]}
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       210   segment 15 data was: {'length': 219.38550544646287, 'slope': 0.0593607305936073, 'point1': [1143, 1449], 'point2': [924, 1436]}
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.05075187969924812     Min slope dif: 0.15
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       206   segment no: 15 will be deleted.
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       207   Changing seg#16's point1 from [924, 1436] to [1323, 1449]
+2022-05-21 15:14:32,824 DEBUG    components.CardMaskProcessor                       209   segment 15 data was: {'length': 399.21172327475557, 'slope': 0.03258145363408521, 'point1': [1323, 1449], 'point2': [924, 1436]}
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       210   segment 16 data was: {'length': 12.041594578792294, 'slope': 0.08333333333333333, 'point1': [924, 1436], 'point2': [912, 1435]}
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.0596867396593674     Min slope dif: 0.15
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       206   segment no: 16 will be deleted.
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       207   Changing seg#17's point1 from [912, 1435] to [1323, 1449]
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       209   segment 16 data was: {'length': 411.23837369584083, 'slope': 0.0340632603406326, 'point1': [1323, 1449], 'point2': [912, 1435]}
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       210   segment 17 data was: {'length': 160.70158679988197, 'slope': 0.09375, 'point1': [912, 1435], 'point2': [752, 1420]}
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.11587857559836542     Min slope dif: 0.15
+2022-05-21 15:14:32,825 DEBUG    components.CardMaskProcessor                       206   segment no: 17 will be deleted.
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       207   Changing seg#18's point1 from [752, 1420] to [1323, 1449]
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       209   segment 17 data was: {'length': 571.735953041262, 'slope': 0.050788091068301226, 'point1': [1323, 1449], 'point2': [752, 1420]}
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       210   segment 18 data was: {'length': 6.0827625302982185, 'slope': 0.16666666666666666, 'point1': [752, 1420], 'point2': [746, 1419]}
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.28134026574234544     Min slope dif: 0.15
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.16666666666666669     Min slope dif: 0.15
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.5     Min slope dif: 0.15
+2022-05-21 15:14:32,826 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 9998.0     Min slope dif: 0.15
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 10005.851851851852     Min slope dif: 0.15
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 5.851851851851852     Min slope dif: 0.15
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.75     Min slope dif: 0.15
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.125     Min slope dif: 0.15
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       206   segment no: 25 will be deleted.
+2022-05-21 15:14:32,827 DEBUG    components.CardMaskProcessor                       207   Changing seg#26's point1 from [767, 969] to [763, 970]
+2022-05-21 15:14:32,828 DEBUG    components.CardMaskProcessor                       209   segment 25 data was: {'length': 4.123105625617661, 'slope': -0.25, 'point1': [763, 970], 'point2': [767, 969]}
+2022-05-21 15:14:32,828 DEBUG    components.CardMaskProcessor                       210   segment 26 data was: {'length': 8.06225774829855, 'slope': -0.125, 'point1': [767, 969], 'point2': [775, 968]}
+2022-05-21 15:14:32,828 DEBUG    components.CardMaskProcessor                       203   i1: {i}   and     i2: {index_next}
+2022-05-21 15:14:32,828 DEBUG    components.CardMaskProcessor                       204   Slopes diff: 0.16666666666666666     Min slope dif: 0.15
+2022-05-21 15:14:32,828 INFO     components.CardMaskProcessor                       230   Refining by length...
+2022-05-21 15:14:32,828 INFO     components.CardMaskProcessor                       252   Matching parallel lines...
+2022-05-21 15:14:32,828 DEBUG    components.CardMaskProcessor                       258   Processing segment:
+{'length': 480.009374908449, 'slope': 0.00625, 'point1': [860, 968], 'point2': [1340, 971]}
+2022-05-21 15:14:32,828 DEBUG    components.CardMaskProcessor                       269   Slope difference is 9998.99375
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       269   Slope difference is 11.08625
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       269   Slope difference is 0.04574306759098787
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       273   Parallel segment found.
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       274   Other seg: {'length': 577.7793696559266, 'slope': 0.05199306759098787, 'point1': [1323, 1449], 'point2': [746, 1419]}
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       269   Slope difference is 9998.99375
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       269   Slope difference is 6.858101851851852
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       269   Slope difference is 0.00625
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       273   Parallel segment found.
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       274   Other seg: {'length': 85.0, 'slope': 0.0, 'point1': [775, 968], 'point2': [860, 968]}
+2022-05-21 15:14:32,829 DEBUG    components.CardMaskProcessor                       278   Adding parallel segments.
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       258   Processing segment:
+{'length': 130.0, 'slope': 9999.0, 'point1': [1364, 984], 'point2': [1364, 1114]}
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       258   Processing segment:
+{'length': 278.12587078515367, 'slope': -11.08, 'point1': [1364, 1114], 'point2': [1339, 1391]}
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       269   Slope difference is 11.08625
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       269   Slope difference is 10010.08
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       269   Slope difference is 11.131993067590988
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       269   Slope difference is 10010.08
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       269   Slope difference is 4.228148148148148
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       269   Slope difference is 11.08
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       258   Processing segment:
+{'length': 577.7793696559266, 'slope': 0.05199306759098787, 'point1': [1323, 1449], 'point2': [746, 1419]}
+2022-05-21 15:14:32,830 DEBUG    components.CardMaskProcessor                       258   Processing segment:
+{'length': 257.0, 'slope': 9999.0, 'point1': [735, 1413], 'point2': [735, 1156]}
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       258   Processing segment:
+{'length': 186.9598887462228, 'slope': -6.851851851851852, 'point1': [735, 1156], 'point2': [762, 971]}
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       269   Slope difference is 6.858101851851852
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       269   Slope difference is 10005.851851851852
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       269   Slope difference is 4.228148148148148
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       269   Slope difference is 6.9038449194428395
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       269   Slope difference is 10005.851851851852
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       269   Slope difference is 6.851851851851852
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       258   Processing segment:
+{'length': 85.0, 'slope': 0.0, 'point1': [775, 968], 'point2': [860, 968]}
+2022-05-21 15:14:32,831 DEBUG    components.CardMaskProcessor                       293   Parallel segment:
+{'segments_list': [<components.CardMaskProcessor.Segment object at 0x7fac3cfaf5e0>, <components.CardMaskProcessor.Segment object at 0x7fac36b61a90>, <components.CardMaskProcessor.Segment object at 0x7fac36b61d60>]}
+2022-05-21 15:14:35,768 INFO     components.CardMaskProcessor                       406   Measuring mean height between top and bottom edges in pixels
+2022-05-21 15:14:35,768 INFO     components.CardMaskProcessor                       346   Selecting strongest candidate for card top and bottom edges among parallel segments...
+2022-05-21 15:14:35,768 INFO     components.CardMaskProcessor                       331   Checking if parallel segment coincides with bounding box
+2022-05-21 15:14:35,768 INFO     components.CardMaskProcessor                       331   Checking if parallel segment coincides with bounding box
+2022-05-21 15:14:35,768 INFO     components.CardMaskProcessor                       331   Checking if parallel segment coincides with bounding box
+2022-05-21 15:14:35,768 INFO     components.CardMaskProcessor                       377   Parallel segment contains more than two segments!
+2022-05-21 15:14:35,768 INFO     components.CardMaskProcessor                       379   {'length': 480.009374908449, 'slope': 0.00625, 'point1': [860, 968], 'point2': [1340, 971]}
+2022-05-21 15:14:35,769 INFO     components.CardMaskProcessor                       379   {'length': 577.7793696559266, 'slope': 0.05199306759098787, 'point1': [1323, 1449], 'point2': [746, 1419]}
+2022-05-21 15:14:35,769 INFO     components.CardMaskProcessor                       379   {'length': 85.0, 'slope': 0.0, 'point1': [775, 968], 'point2': [860, 968]}
+2022-05-21 15:14:35,769 DEBUG    components.CardMaskProcessor                       386   Merging segments: 
+{'length': 85.0, 'slope': 0.0, 'point1': [775, 968], 'point2': [860, 968]}
+{'length': 480.009374908449, 'slope': 0.00625, 'point1': [860, 968], 'point2': [1340, 971]}
+2022-05-21 15:14:35,769 INFO     components.CardMaskProcessor                       435   Distance from point (1057, 969) to segment line is:
+465.5410250459102
+2022-05-21 15:14:35,769 INFO     components.CardMaskProcessor                       435   Distance from point (1034, 1434) to segment line is:
+464.61822925116974
+2022-05-21 15:14:35,769 INFO     components.CardMaskProcessor                       465   Calculated height_px: 465.07962714854    -     Validation height_px: 465.0
+2022-05-21 15:14:35,769 INFO     components.CardMaskProcessor                       467   Mean height of card in px: 465.07962714854
+2022-05-21 15:14:35,836 INFO     __main__                                           71    mm_per_pixel: 0.11606614620158266
+2022-05-21 15:14:35,836 INFO     __main__                                           72    Pupils distance in px: 515.4027551342737
+2022-05-21 15:14:35,836 INFO     __main__                                           73    Pupils distance in mm: 59.82081153011312
+2022-05-21 15:14:35,836 INFO     __main__                                           161   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/test/70--21-05-2022.jpg

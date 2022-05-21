@@ -2,7 +2,7 @@ import logging
 import logging.config
 
 
-def init_logger():
+def init_logger(log_name: str = "eye_measurement.log"):
     logging.config.dictConfig({
         'version': 1,
         'disable_existing_loggers': False,
@@ -23,7 +23,7 @@ def init_logger():
                 'level': 'NOTSET',
                 'class': 'logging.FileHandler',
                 'formatter': 'file',
-                'filename': 'eye_measurement.log'
+                'filename': f'{log_name}'
             }
         },
         'loggers': {
