@@ -10,7 +10,7 @@ import os
 import logging
 import mmcv
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # todo: implement a recursive algorith which will execute when no parallel lines were found.
 #  The algorithm will reduce parameters such as min_segment_length, and will also try smaller
@@ -20,6 +20,9 @@ logger.setLevel(logging.DEBUG)
 #  higher than 85 mm, it will re run as above. Such length will be assumed to be impossible for
 #  any human.
 
+
+# todo: Onden kart ile fotograf cekerken, ayni anda yandan da fotografini cek. Boylece en dogru sonucu
+#  hangi acidan aldigini kontrol et.
 
 class NoMaskError(Exception):
     pass

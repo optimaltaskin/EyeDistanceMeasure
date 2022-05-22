@@ -17,6 +17,8 @@ logger = logging.getLogger(__name__)
 logging.getLogger("matplotlib").setLevel(logging.INFO)
 logging.getLogger("PIL").setLevel(logging.INFO)
 
+# python detect_mask_batch.py --conf_file=results/tuning_results/AdamW/mask7/set_base_set_bbone50_m_7_lr_0.0001_wd_0.001/config_set_base_set_bbone50_m_7_lr_0.0001_wd_0.001.py --check_file=results/tuning_results/AdamW/mask7/set_base_set_bbone50_m_7_lr_0.0001_wd_0.001/pth_set_base_set_bbone50_m_7_lr_0.0001_wd_0.001.pth --print_mask=True --save_to_folder=results/tuning_results/temp/ --images_dir=data/sil/
+
 
 
 def arguement_parse():
