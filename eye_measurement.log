@@ -8826,3 +8826,156 @@
 2022-05-22 10:15:19,261 INFO     __main__                                           74    Pupils distance in px: 409.0195594345092
 2022-05-22 10:15:19,261 INFO     __main__                                           75    Pupils distance in mm: 65.39624610832506
 2022-05-22 10:15:19,261 INFO     __main__                                           163   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/tuning_results/temp/test20--22-05-2022.jpg
+2022-05-28 18:50:36,861 INFO     components.CardMaskProcessor                       77    Card Mask Processor is being generated...
+2022-05-28 18:51:32,574 INFO     components.CardMaskProcessor                       77    Card Mask Processor is being generated...
+2022-05-28 18:51:38,116 INFO     __main__                                           109   Processing file: data/result_validation/13.jpg
+2022-05-28 18:51:38,641 INFO     components.CardMaskProcessor                       104   Initializing card mask processor
+2022-05-28 18:51:39,232 INFO     components.CardMaskProcessor                       125   Card mask processor initialization completed.
+2022-05-28 18:51:39,232 INFO     __main__                                           122   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7f9c8d4bcdc0>
+2022-05-28 18:51:39,232 INFO     components.CardMaskProcessor                       128   Changing from binary to grayscale image
+2022-05-28 18:51:39,286 INFO     components.CardMaskProcessor                       134   Drawing contours of mask.
+2022-05-28 18:51:39,314 INFO     components.CardMaskProcessor                       139   Creating convex hull.
+2022-05-28 18:51:39,314 INFO     components.CardMaskProcessor                       320   Trying to define card top and bottom edges...
+2022-05-28 18:51:39,315 INFO     components.CardMaskProcessor                       159   Generating segments.
+2022-05-28 18:51:39,326 INFO     components.CardMaskProcessor                       185   Refining by similarity...
+2022-05-28 18:51:39,327 INFO     components.CardMaskProcessor                       233   Refining by length...
+2022-05-28 18:51:39,327 INFO     components.CardMaskProcessor                       255   Matching parallel lines...
+2022-05-28 18:51:41,751 INFO     components.CardMaskProcessor                       409   Measuring mean height between top and bottom edges in pixels
+2022-05-28 18:51:41,751 INFO     components.CardMaskProcessor                       349   Selecting strongest candidate for card top and bottom edges among parallel segments...
+2022-05-28 18:51:41,751 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:51:41,752 INFO     components.CardMaskProcessor                       438   Distance from point (1261, 1337) to segment line is:
+263.0
+2022-05-28 18:51:41,752 INFO     components.CardMaskProcessor                       438   Distance from point (1194, 1600) to segment line is:
+263.4572417355879
+2022-05-28 18:51:41,752 INFO     components.CardMaskProcessor                       438   Distance from point (1153, 1337) to segment line is:
+2.7865996509507602
+2022-05-28 18:51:41,752 INFO     components.CardMaskProcessor                       468   Calculated height_px: 264.6219206932693    -     Validation height_px: 264.15336454416024
+2022-05-28 18:51:41,752 INFO     components.CardMaskProcessor                       470   Mean height of card in px: 264.6219206932693
+2022-05-28 18:51:42,273 INFO     __main__                                           73    mm_per_pixel: 0.203989147454529
+2022-05-28 18:51:42,273 INFO     __main__                                           74    Pupils distance in px: 297.0420845604205
+2022-05-28 18:51:42,273 INFO     __main__                                           75    Pupils distance in mm: 60.59336158759629
+2022-05-28 18:51:42,273 INFO     __main__                                           163   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/tuning_results/temp/13--28-05-2022.jpg
+2022-05-28 18:51:42,448 INFO     __main__                                           109   Processing file: data/result_validation/42.jpg
+2022-05-28 18:51:42,905 INFO     components.CardMaskProcessor                       104   Initializing card mask processor
+2022-05-28 18:51:43,431 INFO     components.CardMaskProcessor                       125   Card mask processor initialization completed.
+2022-05-28 18:51:43,431 INFO     __main__                                           122   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7f9c8d4bcdc0>
+2022-05-28 18:51:43,431 INFO     components.CardMaskProcessor                       128   Changing from binary to grayscale image
+2022-05-28 18:51:43,488 INFO     components.CardMaskProcessor                       134   Drawing contours of mask.
+2022-05-28 18:51:43,493 INFO     components.CardMaskProcessor                       139   Creating convex hull.
+2022-05-28 18:51:43,494 INFO     components.CardMaskProcessor                       320   Trying to define card top and bottom edges...
+2022-05-28 18:51:43,494 INFO     components.CardMaskProcessor                       159   Generating segments.
+2022-05-28 18:51:43,499 INFO     components.CardMaskProcessor                       185   Refining by similarity...
+2022-05-28 18:51:43,500 INFO     components.CardMaskProcessor                       233   Refining by length...
+2022-05-28 18:51:43,500 INFO     components.CardMaskProcessor                       255   Matching parallel lines...
+2022-05-28 18:51:45,541 INFO     components.CardMaskProcessor                       409   Measuring mean height between top and bottom edges in pixels
+2022-05-28 18:51:45,541 INFO     components.CardMaskProcessor                       349   Selecting strongest candidate for card top and bottom edges among parallel segments...
+2022-05-28 18:51:45,541 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:51:45,541 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:51:45,541 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:51:45,541 INFO     components.CardMaskProcessor                       438   Distance from point (1018, 1313) to segment line is:
+394.1982706261946
+2022-05-28 18:51:45,542 INFO     components.CardMaskProcessor                       438   Distance from point (887, 941) to segment line is:
+394.7126161955573
+2022-05-28 18:51:45,542 INFO     components.CardMaskProcessor                       468   Calculated height_px: 394.45544341087594    -     Validation height_px: 393.517471022571
+2022-05-28 18:51:45,542 INFO     components.CardMaskProcessor                       470   Mean height of card in px: 394.45544341087594
+2022-05-28 18:51:45,591 INFO     __main__                                           73    mm_per_pixel: 0.13684688829042954
+2022-05-28 18:51:45,591 INFO     __main__                                           74    Pupils distance in px: 447.25160704015366
+2022-05-28 18:51:45,591 INFO     __main__                                           75    Pupils distance in mm: 61.204990706339
+2022-05-28 18:51:45,592 INFO     __main__                                           163   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/tuning_results/temp/42--28-05-2022.jpg
+2022-05-28 18:51:45,767 INFO     __main__                                           109   Processing file: data/result_validation/26.jpg
+2022-05-28 18:51:45,968 INFO     components.CardMaskProcessor                       104   Initializing card mask processor
+2022-05-28 18:51:46,310 INFO     components.CardMaskProcessor                       125   Card mask processor initialization completed.
+2022-05-28 18:51:46,310 INFO     __main__                                           122   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7f9c8d4bcdc0>
+2022-05-28 18:51:46,311 INFO     components.CardMaskProcessor                       128   Changing from binary to grayscale image
+2022-05-28 18:51:46,349 INFO     components.CardMaskProcessor                       134   Drawing contours of mask.
+2022-05-28 18:51:46,354 INFO     components.CardMaskProcessor                       139   Creating convex hull.
+2022-05-28 18:51:46,354 INFO     components.CardMaskProcessor                       320   Trying to define card top and bottom edges...
+2022-05-28 18:51:46,355 INFO     components.CardMaskProcessor                       159   Generating segments.
+2022-05-28 18:51:46,358 INFO     components.CardMaskProcessor                       185   Refining by similarity...
+2022-05-28 18:51:46,358 INFO     components.CardMaskProcessor                       233   Refining by length...
+2022-05-28 18:51:46,358 INFO     components.CardMaskProcessor                       255   Matching parallel lines...
+2022-05-28 18:51:47,811 INFO     components.CardMaskProcessor                       409   Measuring mean height between top and bottom edges in pixels
+2022-05-28 18:51:47,811 INFO     components.CardMaskProcessor                       349   Selecting strongest candidate for card top and bottom edges among parallel segments...
+2022-05-28 18:51:47,811 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:51:47,811 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:51:47,812 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:51:47,812 INFO     components.CardMaskProcessor                       438   Distance from point (1472, 1621) to segment line is:
+391.9514179520146
+2022-05-28 18:51:47,812 INFO     components.CardMaskProcessor                       438   Distance from point (1335, 1253) to segment line is:
+392.31785453151076
+2022-05-28 18:51:47,812 INFO     components.CardMaskProcessor                       468   Calculated height_px: 392.1346362417627    -     Validation height_px: 391.94514922371474
+2022-05-28 18:51:47,812 INFO     components.CardMaskProcessor                       470   Mean height of card in px: 392.1346362417627
+2022-05-28 18:51:47,856 INFO     __main__                                           73    mm_per_pixel: 0.1376568020548935
+2022-05-28 18:51:47,856 INFO     __main__                                           74    Pupils distance in px: 506.0247029543123
+2022-05-28 18:51:47,856 INFO     __main__                                           75    Pupils distance in mm: 69.65774236946805
+2022-05-28 18:51:47,856 INFO     __main__                                           163   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/tuning_results/temp/26--28-05-2022.jpg
+2022-05-28 18:51:47,991 INFO     __main__                                           109   Processing file: data/result_validation/110.jpg
+2022-05-28 18:51:48,039 INFO     components.CardMaskProcessor                       104   Initializing card mask processor
+2022-05-28 18:52:46,878 INFO     components.CardMaskProcessor                       77    Card Mask Processor is being generated...
+2022-05-28 18:53:04,246 INFO     __main__                                           109   Processing file: data/result_validation/13.jpg
+2022-05-28 18:53:05,411 INFO     components.CardMaskProcessor                       104   Initializing card mask processor
+2022-05-28 18:53:05,958 INFO     components.CardMaskProcessor                       125   Card mask processor initialization completed.
+2022-05-28 18:53:05,958 INFO     __main__                                           122   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7fb24388b700>
+2022-05-28 18:53:05,959 INFO     components.CardMaskProcessor                       128   Changing from binary to grayscale image
+2022-05-28 18:53:06,016 INFO     components.CardMaskProcessor                       134   Drawing contours of mask.
+2022-05-28 18:53:06,020 INFO     components.CardMaskProcessor                       139   Creating convex hull.
+2022-05-28 18:53:06,020 INFO     components.CardMaskProcessor                       320   Trying to define card top and bottom edges...
+2022-05-28 18:53:06,021 INFO     components.CardMaskProcessor                       159   Generating segments.
+2022-05-28 18:53:06,023 INFO     components.CardMaskProcessor                       185   Refining by similarity...
+2022-05-28 18:53:06,023 INFO     components.CardMaskProcessor                       233   Refining by length...
+2022-05-28 18:53:06,023 INFO     components.CardMaskProcessor                       255   Matching parallel lines...
+2022-05-28 18:53:08,952 INFO     components.CardMaskProcessor                       409   Measuring mean height between top and bottom edges in pixels
+2022-05-28 18:53:08,952 INFO     components.CardMaskProcessor                       349   Selecting strongest candidate for card top and bottom edges among parallel segments...
+2022-05-28 18:53:08,952 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:53:08,952 INFO     components.CardMaskProcessor                       438   Distance from point (1261, 1337) to segment line is:
+263.0
+2022-05-28 18:53:08,953 INFO     components.CardMaskProcessor                       438   Distance from point (1194, 1600) to segment line is:
+263.4572417355879
+2022-05-28 18:53:08,953 INFO     components.CardMaskProcessor                       438   Distance from point (1153, 1337) to segment line is:
+2.7865996509507602
+2022-05-28 18:53:08,953 INFO     components.CardMaskProcessor                       468   Calculated height_px: 264.6219206932693    -     Validation height_px: 264.15336454416024
+2022-05-28 18:53:08,953 INFO     components.CardMaskProcessor                       470   Mean height of card in px: 264.6219206932693
+2022-05-28 18:53:09,111 INFO     __main__                                           73    mm_per_pixel: 0.203989147454529
+2022-05-28 18:53:09,111 INFO     __main__                                           74    Pupils distance in px: 296.0270257932542
+2022-05-28 18:53:09,111 INFO     __main__                                           75    Pupils distance in mm: 60.38630061506579
+2022-05-28 18:53:09,111 INFO     __main__                                           163   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/tuning_results/temp/13--28-05-2022.jpg
+2022-05-28 18:53:09,260 INFO     __main__                                           109   Processing file: data/result_validation/42.jpg
+2022-05-28 18:53:09,586 INFO     components.CardMaskProcessor                       104   Initializing card mask processor
+2022-05-28 18:53:10,034 INFO     components.CardMaskProcessor                       125   Card mask processor initialization completed.
+2022-05-28 18:53:10,034 INFO     __main__                                           122   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7fb24388b700>
+2022-05-28 18:53:10,034 INFO     components.CardMaskProcessor                       128   Changing from binary to grayscale image
+2022-05-28 18:53:10,131 INFO     components.CardMaskProcessor                       134   Drawing contours of mask.
+2022-05-28 18:53:10,136 INFO     components.CardMaskProcessor                       139   Creating convex hull.
+2022-05-28 18:53:10,137 INFO     components.CardMaskProcessor                       320   Trying to define card top and bottom edges...
+2022-05-28 18:53:10,137 INFO     components.CardMaskProcessor                       159   Generating segments.
+2022-05-28 18:53:10,140 INFO     components.CardMaskProcessor                       185   Refining by similarity...
+2022-05-28 18:53:10,140 INFO     components.CardMaskProcessor                       233   Refining by length...
+2022-05-28 18:53:10,140 INFO     components.CardMaskProcessor                       255   Matching parallel lines...
+2022-05-28 18:53:12,113 INFO     components.CardMaskProcessor                       409   Measuring mean height between top and bottom edges in pixels
+2022-05-28 18:53:12,114 INFO     components.CardMaskProcessor                       349   Selecting strongest candidate for card top and bottom edges among parallel segments...
+2022-05-28 18:53:12,114 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:53:12,121 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:53:12,121 INFO     components.CardMaskProcessor                       334   Checking if parallel segment coincides with bounding box
+2022-05-28 18:53:12,121 INFO     components.CardMaskProcessor                       438   Distance from point (1018, 1313) to segment line is:
+394.1982706261946
+2022-05-28 18:53:12,121 INFO     components.CardMaskProcessor                       438   Distance from point (887, 941) to segment line is:
+394.7126161955573
+2022-05-28 18:53:12,121 INFO     components.CardMaskProcessor                       468   Calculated height_px: 394.45544341087594    -     Validation height_px: 393.517471022571
+2022-05-28 18:53:12,121 INFO     components.CardMaskProcessor                       470   Mean height of card in px: 394.45544341087594
+2022-05-28 18:53:12,208 INFO     __main__                                           73    mm_per_pixel: 0.13684688829042954
+2022-05-28 18:53:12,208 INFO     __main__                                           74    Pupils distance in px: 449.2849875079291
+2022-05-28 18:53:12,208 INFO     __main__                                           75    Pupils distance in mm: 61.4832524960646
+2022-05-28 18:53:12,209 INFO     __main__                                           163   Saving processed file to /home/patroclos/PycharmProjects/mmdet/results/tuning_results/temp/42--28-05-2022.jpg
+2022-05-28 18:54:22,270 INFO     components.CardMaskProcessor                       77    Card Mask Processor is being generated...
+2022-05-28 18:54:30,482 INFO     __main__                                           109   Processing file: data/result_validation/13.jpg
+2022-05-28 18:54:31,980 INFO     components.CardMaskProcessor                       104   Initializing card mask processor
+2022-05-28 18:54:32,622 INFO     components.CardMaskProcessor                       125   Card mask processor initialization completed.
+2022-05-28 18:54:32,622 INFO     __main__                                           122   Mask processor object: <components.CardMaskProcessor.CardMaskProcessor object at 0x7f1d6a74ee20>
+2022-05-28 18:54:32,622 INFO     components.CardMaskProcessor                       128   Changing from binary to grayscale image
+2022-05-28 18:54:32,731 INFO     components.CardMaskProcessor                       134   Drawing contours of mask.
+2022-05-28 18:54:32,784 INFO     components.CardMaskProcessor                       139   Creating convex hull.
+2022-05-28 18:54:32,784 INFO     components.CardMaskProcessor                       320   Trying to define card top and bottom edges...
+2022-05-28 18:54:32,784 INFO     components.CardMaskProcessor                       159   Generating segments.
+2022-05-28 18:54:32,788 INFO     components.CardMaskProcessor                       185   Refining by similarity...
+2022-05-28 18:54:32,789 INFO     components.CardMaskProcessor                       233   Refining by length...
+2022-05-28 18:54:32,789 INFO     components.CardMaskProcessor                       255   Matching parallel lines...

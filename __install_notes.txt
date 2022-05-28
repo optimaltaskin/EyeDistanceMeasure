@@ -1,3 +1,24 @@
+# Working below
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y python3 python3-pip build-essential manpages-dev build-essential ffmpeg libsm6 libxext6 git
+mkdir proj
+cd proj
+
+# Working below
+wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+bash Anaconda3-2022.05-Linux-x86_64.sh
+
+# Working below
+conda create -n openmmlab -y
+conda activate openmmlab
+conda install pytorch torchvision -c pytorch -y
+
+# Working below
+pip install openmim
+mim install mmdet
+
+----------------------------------------------------------------------------
+
 to install torch
     pip install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio===0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 
@@ -23,3 +44,4 @@ to display images install pckg below:
 
     sudo apt-get install python3-tk
 
+----------------------------------------------------------------------------
