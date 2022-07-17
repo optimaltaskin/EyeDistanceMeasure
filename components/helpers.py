@@ -46,3 +46,7 @@ def load_image(img: str):
     except:
         logger.info(f"Image file not found! File name: {img}")
         exit()
+
+
+def clamp(num, min, max):
+    return min if num < min else max if num > max else num

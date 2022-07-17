@@ -1,5 +1,3 @@
-
-
 class AugmentAnnotation:
 
     def __init__(self, images_list: []):

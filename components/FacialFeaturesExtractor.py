@@ -1,3 +1,5 @@
+import math
+
 from components.helpers import get_center_of_points, Point, \
     get_distance_of_points_tuple
 
@@ -23,6 +25,9 @@ class FacialFeaturesExtractor:
         self.right_eye_pos: () = None
         self.left_cheek_pos: () = None
         self.right_cheek_pos: () = None
+        self.forehead_pad_perc = 0.9
+        self.forehead_pad_perc_inc = 0.0
+        self.head_crop_scale = 0.05
 
         self.image = image
         self.image_size = self.image.shape[:2]
@@ -113,26 +118,94 @@ class FacialFeaturesExtractor:
         cv2.line(self.image, (left_eye.x, left_eye.y), (right_eye.x, right_eye.y), (0, 100, 255), 2)
 
     def get_pupils_distance(self):
-        assert self.left_eye_pos is not None and self.right_eye_pos is not None, "Eye positions arenot calculated " \
+        assert self.left_eye_pos is not None and self.right_eye_pos is not None, "Eye positions are not calculated " \
                                                                                  "yet. Process them first "
         return get_distance_of_points_tuple(self.left_eye_pos, self.right_eye_pos)
 
-    def crop_forehead(self):
+    def crop_forehead(self, y_displacement: int = 0) -> ([], []):
+        """ Returns forehead image with a list containing top_left and bottom_right coordinates in sequence"""
         assert self.image is not None, "Please load an image before calling crop"
-        # bottom_left_i = 48
-        top_left_i = 103 #67
-        # top_right_i = 297
-        bottom_right_i = 255#283
+        pad_percent = self.forehead_pad_perc + self.forehead_pad_perc_inc
+
+        pupil_dist = int(self.get_pupils_distance())
+        pad_y = 0
+        pad_x = int(pupil_dist * pad_percent)
+        side_length = int(pupil_dist * (1 + 2 * pad_percent))
+        right_eye = Point(x=self.right_eye_pos[0], y=self.right_eye_pos[1])
+        corrected_top = right_eye.y - side_length
+        y_displacement = 100
+        if corrected_top < 0:
+            pad_y = int(math.fabs(corrected_top))
+            corrected_top = 0
+        corrected_top = corrected_top + y_displacement
+        corrected_bottom = right_eye.y + pad_y + y_displacement
+        corrected_left = right_eye.x - pad_x
+        corrected_right = right_eye.x - pad_x + side_length
+        return self.image[corrected_top: corrected_bottom,
+               corrected_left: corrected_right], \
+               [(corrected_top, corrected_left), (corrected_bottom, corrected_right)]
+
+    def increase_forehead_crop_pad(self):
+        self.forehead_pad_perc_inc += 0.1
+
+    def reset_forehead_crop_pad(self):
+        self.forehead_pad_perc_inc = 0.0
+
+    def get_forehead_crop_pad_total(self) -> float:
+        return self.forehead_pad_perc + self.forehead_pad_perc_inc
+
+    def arrange_crop_length(self, param1: int, param2: int, ref_length: int):
+        # param1 is either top or left edge. Min value is 0
+        # param2 is either bottom or right edge. Max value is ref_length
+        if param1 < 0 and param2 > ref_length:
+            logger.warning(f"param1 and param2 are out of limits. Param1: {param1}, param2: {param2}, "
+                           f"ref_length: {ref_length}")
+            raise ValueError
+        elif param1 < 0:
+            param1 = 0
+            param2 += -param1
+        elif param2 > ref_length:
+            param1 -= param2 - ref_length
+            param2 = ref_length
+        logger.debug(f"param1: {param1}, param2: {param2}, ref_length: {ref_length}")
+        assert (0 <= param1 <= ref_length), "Calculated crop edges are out of image"
+        assert (0 <= param2 <= ref_length), "Calculated crop edges are out of image"
+
+        return param1, param2
+
+    def crop_whole_head(self):
+        # returns head image with an aspect ratio of 1
+        assert self.image is not None, "Please load an image before calling crop"
+        # left: 234, bottom: 152, right: 454, top: 10
         height, width = self.image_size
+        width_pad = width * self.head_crop_scale
+        height_pad = height * self.head_crop_scale
+        top = int(self.faceLandmarks.landmark[10].y * height - 2 * height_pad)
+        left = int(self.faceLandmarks.landmark[234].x * width - width_pad)
+        bottom = int(self.faceLandmarks.landmark[152].y * height + height_pad)
+        right = int(self.faceLandmarks.landmark[454].x * width + width_pad)
 
-        corrected_top_y = self.faceLandmarks.landmark[top_left_i].y - 1.5 * \
-                          (self.faceLandmarks.landmark[bottom_right_i].y - self.faceLandmarks.landmark[top_left_i].y)
+        size_x = right - left
+        size_y = bottom - top
+        logger.debug(f"size_x: {size_x}, size_y: {size_y}")
+        logger.debug(f"top: {top}, bottom: {bottom}")
+        logger.debug(f"left: {left}, right: {right}")
 
-        corrected_top_y = 0 if corrected_top_y <= 0 else corrected_top_y
+        if size_x > size_y:
+            half_diff = int(size_x / 2)
+            mid_point = top + int(size_y / 2)
+            top = mid_point - half_diff
+            bottom = mid_point + half_diff
+        else:
+            half_diff = int(size_y / 2)
+            mid_point = left + int(size_x / 2)
+            left = mid_point - half_diff
+            right = mid_point + half_diff
 
-        return self.image[int(corrected_top_y * height):
-                          int(self.faceLandmarks.landmark[bottom_right_i].y * height),
-                          int(self.faceLandmarks.landmark[top_left_i].x * width):
-                          int(self.faceLandmarks.landmark[bottom_right_i].x * width)]
+        logger.debug(f"After making aspect ratio 1 => top: {top}, bottom: {bottom}")
+        logger.debug(f"After making aspect ratio 1 => left: {left}, right: {right}")
 
+        top, bottom = self.arrange_crop_length(top, bottom, height)
+        left, right = self.arrange_crop_length(left, right, width)
 
+        return self.image[top: bottom, left: right]
