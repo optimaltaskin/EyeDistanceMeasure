@@ -8,16 +8,15 @@ file_path = f"configs/_optimal/{conf_file_no_ext}.py"
 target_conf_file_path = f"configs/_optimal/{conf_file_no_ext}_final.py"
 tuning_res_folder = "results/tuning_results/AdamW/mask7/"
 
-NUMBER_OF_EPOCHS = 50
+NUMBER_OF_EPOCHS = 12
 EXCLUDE_ITER_JSON = "exclude_iters.json"
 exclude_iter_json_path = f'{tuning_res_folder}{EXCLUDE_ITER_JSON}'
 
 bbone_list = [50]
-set_list = ["base_set"]
+set_list = ["cocoset"]
 mask_list = [7]
 lr_list = [0.0001, 0.000025, 0.00005, 0.000075, 0.00001]
-# weight_decay_list = [0.00001, 0.0001, 0.001]
-#
+
 target_conf_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), target_conf_file_path)
 
 with open(file_path) as conf_file:
@@ -34,7 +33,7 @@ for bbone in bbone_list:
     for set in set_list:
         for m in mask_list:
             for lr in lr_list:
-                for wd in [lr * 10, lr, lr * 0.1]:
+                for wd in [lr, lr * 0.1]:
                     print(f"Beginning iteration with following parameters:\nmask_size:{m}\nset:{set}\nlr:{lr}\nwd:{wd}")
 
                     # check if those parameters are in excluded list
@@ -86,7 +85,6 @@ for bbone in bbone_list:
                             conf_file_lines[i] = bbone_line
                             print(f"Backbone pretrain selection changed successfully!..")
 
-
                     with open(target_conf_file_path, 'w+') as target_conf_file:
                         target_conf_file.writelines(conf_file_lines)
                     print("Config file saved successfully.")
@@ -100,11 +98,10 @@ for bbone in bbone_list:
 
                     print(f"created directory: {dir_path}")
                     os.makedirs(dir_path, exist_ok=True)
-                    os.system(f"python detect_mask_batch.py "
+                    os.system(f"python run_test.py "
                               f"--conf_file={target_conf_file_path} "
                               f"--check_file='work_dirs/{conf_file_no_ext}_final/latest.pth' "
-                              f"--print_mask=True "
-                              f"--save_to_folder={target_folder_name}/")
+                              f"--root_folder={target_folder_name}/")
                     from_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                              f"work_dirs/{conf_file_no_ext}_final/epoch_{NUMBER_OF_EPOCHS}.pth")
                     to_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),

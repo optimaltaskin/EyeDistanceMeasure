@@ -70,6 +70,9 @@ class ParallelSegment:
     def contains_segment(self, segment: Segment) -> bool:
         return segment in self.segments_list
 
+    def copy_list(self):
+        return self.segments_list.copy()
+
 
 class CardMaskProcessor:
 
@@ -100,7 +103,7 @@ class CardMaskProcessor:
 
 
 
-    def initialize(self, image_filename: str, threshold: int = 100, min_segment_length: float = 50.0):
+    def initialize(self, image_filename: str, threshold: int = 100, min_segment_length: float = 20.0):
         logger.info("Initializing card mask processor")
         self.inference: () = inference_detector(self.model, image_filename)
         self.image_filename: str = image_filename
@@ -159,7 +162,7 @@ class CardMaskProcessor:
         logger.info("Generating segments.")
         contours = sorted(self.hull_list, key=lambda x: cv2.contourArea(x), reverse=True)
         for i, h in enumerate(contours[0]):
-            logger.debug(f"Segment {i} of {len(contours) - 1}")
+            logger.debug(f"Segment {i} of {len(contours[0]) - 1}")
             p1 = h[0]
             i2 = (i + 1) % (len(contours[0]))
             p2 = contours[0][i2][0]
@@ -203,7 +206,7 @@ class CardMaskProcessor:
                 continue
 
             slope_dif = abs(s1.slope - s2.slope)
-            logger.debug("i1: {i}   and     i2: {index_next}")
+            logger.debug(f"i1: {i}   and     i2: {index_next}")
             logger.debug(f"Slopes diff: {slope_dif}     Min slope dif: {self.min_slope_dif}")
             if slope_dif < self.min_slope_dif:
                 logger.debug(f"segment no: {i} will be deleted.")
@@ -267,7 +270,12 @@ class CardMaskProcessor:
             if s.slope == VERTICAL_SLOPE:
                 continue
 
+            if self.check_segment_coincide_bbox(s):
+                continue
+
             for rem_segment in remaining_segments:
+                if self.check_segment_coincide_bbox(rem_segment):
+                    continue
                 slope_dif = abs(s.slope - rem_segment.slope)
                 logger.debug(f"Slope difference is {slope_dif}")
                 # multiplication below is required to prevent adding more than two segments in the
@@ -275,11 +283,10 @@ class CardMaskProcessor:
                 if slope_dif < self.min_slope_dif * 0.95:
                     logger.debug(f"Parallel segment found.")
                     logger.debug(f"Other seg: {rem_segment.__dict__}")
-                    parallel_s.add_segment(rem_segment)
-
-            if parallel_s.len_segments() > 1:
-                logger.debug("Adding parallel segments.")
-                self.parallel_segments.append(parallel_s)
+                    new_parallel_segments = ParallelSegment()
+                    new_parallel_segments.segments_list = parallel_s.copy_list()
+                    new_parallel_segments.add_segment(rem_segment)
+                    self.parallel_segments.append(new_parallel_segments)
 
         if save_result:
             # draw parallel segments
@@ -329,6 +336,20 @@ class CardMaskProcessor:
         if display_refinement:
             cv2.waitKey(0)
             cv2.destroyAllWindows()
+
+    def check_segment_coincide_bbox(self, s: Segment) -> bool:
+        logger.info("Checking if segment coincides with bounding box")
+        left = int(self.bounding_box[0][0]) + 1
+        top = int(self.bounding_box[0][1]) + 1
+        right = int(self.bounding_box[0][2]) - 1
+        bottom = int(self.bounding_box[0][3]) - 1
+        if s.point1[1] == s.point2[1]:
+            if s.point1[1] <= top or s.point1[1] >= bottom:
+                return True
+        elif s.point1[0] == s.point2[0]:
+            if s.point1[0] <= left or s.point1[0] >= right:
+                return True
+        return False
 
     def check_p_seg_coincide_bbox(self, p: ParallelSegment) -> bool:
         logger.info("Checking if parallel segment coincides with bounding box")
@@ -414,7 +435,7 @@ class CardMaskProcessor:
         len_segments = len(p_segment.segments_list)
 
         per_line_top_end = (0, 50000)
-        seg_slope = 0.0
+        height_line_slope = 0.0
         for i in range(len_segments):
             s1 = p_segment.segments_list[i % len_segments]
             s2 = p_segment.segments_list[(i + 1) % len_segments]
@@ -422,7 +443,7 @@ class CardMaskProcessor:
             mid_point = (int((s1.point1[0] + s1.point2[0]) / 2), int((s1.point1[1] + s1.point2[1]) / 2))
             if mid_point[1] < per_line_top_end[1]:
                 per_line_top_end = mid_point
-                seg_slope = s1.slope
+                height_line_slope += s1.slope
 
             if mark_to_image is not None:
                 cv2.circle(mark_to_image, (mid_point[0], mid_point[1]), 4, (255, 0, 0))
@@ -438,17 +459,18 @@ class CardMaskProcessor:
             logger.info(f"Distance from point {mid_point} to segment line is:\n{d}")
             height_px += d
 
-        height_px /= 2.0
+        height_px /= len_segments
+        height_line_slope /= len_segments
 
         # draw calculated height on image - top point will be mid point of top line.
         # calculate lower end of height line
         if mark_to_image is not None:
-            if math.fabs(seg_slope) < 0.01:
+            if math.fabs(height_line_slope) < 0.01:
                 # line is nearly horizontal
                 per_line_bottom_end = (per_line_top_end[0], per_line_top_end[1] + int(height_px))
             else:
-                slope_perpendicular_line = - 1 / seg_slope
-                logger.debug(f"Segment slope: {seg_slope}   -    Perpendicular line slope: {slope_perpendicular_line}")
+                slope_perpendicular_line = - 1 / height_line_slope
+                logger.debug(f"Segment slope: {height_line_slope}   -    Perpendicular line slope: {slope_perpendicular_line}")
                 # normalize slope vector
                 slope_vector = (1, slope_perpendicular_line)
                 magnitude = math.sqrt(slope_vector[0] * slope_vector[0] +

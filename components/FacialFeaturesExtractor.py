@@ -47,7 +47,10 @@ class FacialFeaturesExtractor:
 
             if results is None:
                 raise ValueError
-            self.faceLandmarks = results.multi_face_landmarks[0]
+            try:
+                self.faceLandmarks = results.multi_face_landmarks[0]
+            except TypeError:
+                raise ValueError
 
             self.right_eye_pos, self.left_eye_pos = self.get_eye_coords()
             self.right_cheek_pos, self.left_cheek_pos = self.get_cheek_coords()
@@ -113,3 +116,23 @@ class FacialFeaturesExtractor:
         assert self.left_eye_pos is not None and self.right_eye_pos is not None, "Eye positions arenot calculated " \
                                                                                  "yet. Process them first "
         return get_distance_of_points_tuple(self.left_eye_pos, self.right_eye_pos)
+
+    def crop_forehead(self):
+        assert self.image is not None, "Please load an image before calling crop"
+        # bottom_left_i = 48
+        top_left_i = 103 #67
+        # top_right_i = 297
+        bottom_right_i = 255#283
+        height, width = self.image_size
+
+        corrected_top_y = self.faceLandmarks.landmark[top_left_i].y - 1.5 * \
+                          (self.faceLandmarks.landmark[bottom_right_i].y - self.faceLandmarks.landmark[top_left_i].y)
+
+        corrected_top_y = 0 if corrected_top_y <= 0 else corrected_top_y
+
+        return self.image[int(corrected_top_y * height):
+                          int(self.faceLandmarks.landmark[bottom_right_i].y * height),
+                          int(self.faceLandmarks.landmark[top_left_i].x * width):
+                          int(self.faceLandmarks.landmark[bottom_right_i].x * width)]
+
+

@@ -1,16 +1,16 @@
 from datetime import datetime
-
 from components.logger import init_logger
 from components.CardMaskProcessor import CardMaskProcessor
 from components.FacialFeaturesExtractor import FacialFeaturesExtractor
 from components.helpers import filename_no_extension, load_image
 from components.CardMaskProcessor import NoMaskError
 from pathlib import Path
-import cv2
 
+import cv2
 import os
 import argparse
 import logging
+import time
 
 CARD_HEIGHT = 53.98
 logger = logging.getLogger(__name__)
@@ -77,6 +77,7 @@ def measure_eye_distance(image, card_height_px, width, height, filename):
 
 
 def main():
+    script_exec_time = time.time()
     init_logger()
     args = arguement_parse()
     config = args.conf_file
@@ -85,8 +86,11 @@ def main():
         target_folder = "results/"
     else:
         target_folder = args.save_to_folder
-
+    init_time = time.time()
     mask_processor = CardMaskProcessor(config=config, checkpoint=checkpoint)
+    mask_processor_init_time = time.time()
+    logger.info(f"Checkpoint loaded in {(mask_processor_init_time - init_time):.2f} seconds.")
+
     directory = args.images_dir
     target_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                  target_folder)
@@ -95,11 +99,14 @@ def main():
     with open(f"{target_folder}failed_files.txt", "w+") as text_file:
         text_file.write("THIS FILE CONTAINS ALL FAILED DETECTIONS...\n\n")
 
+    num_processed_images: int = 0
+    mean_process_time: float = 0.0
     for filename in os.listdir(directory):
 
-        if filename.endswith(".jpg"):
+        # todo: Add PNG file support
+        if filename.lower().endswith(".jpg"):
 
-
+            file_load_time = time.time()
             if args.image_file != "":
                 full_path = args.image_file
                 args.single_step = True
@@ -108,10 +115,17 @@ def main():
                 full_path = os.path.join(directory, filename)
             logger.info(f"Processing file: {full_path}")
             image = load_image(full_path)
+            file_load_complete_time = time.time()
+            logger.info(f"File loaded in {(file_load_complete_time - file_load_time):.2f} seconds.")
+
             height, width = image.shape[:2]
+
 
             try:
                 mask_processor.initialize(full_path)
+                inference_init_completed_time = time.time()
+                logger.info(f"Inference completed in {(inference_init_completed_time - file_load_complete_time):.2f} "
+                            f"seconds.")
             except NoMaskError:
                 logger.warning(f"Mask not found for file {filename}")
                 with open(f"{target_folder}failed_files.txt", "a") as text_file:
@@ -119,11 +133,16 @@ def main():
                 if args.single_step:
                     exit()
                 continue
-            logger.info(f"Mask processor object: {mask_processor}")
             mask_processor.binary_to_grayscale()
             mask_processor.define_contours()
+            preprocess_completed_time = time.time()
+            logger.info(f"Image preprocessing completed in "
+                        f"{(preprocess_completed_time - inference_init_completed_time):.2f} seconds.")
             try:
                 mask_processor.create_convexhull(draw_contours=False)
+                convex_hull_completed_time = time.time()
+                logger.info(f"Convex hull calculated in {(convex_hull_completed_time - preprocess_completed_time):.2f} "
+                            f"seconds.")
             except AssertionError:
                 logger.warning(f"Convex hull was not formed for file {full_path}")
                 with open(f"{target_folder}failed_files.txt", "a") as text_file:
@@ -135,11 +154,20 @@ def main():
             mask_processor.find_card_top_and_bottom(display_refinement=args.disp_refinement,
                                                     save_result=True,
                                                     result_to_image=image)
+            card_top_bottom_found_time = time.time()
+            logger.info(f"Card top and bottom edge detected in "
+                        f"{(card_top_bottom_found_time - convex_hull_completed_time):.2f} seconds.")
             if args.print_mask:
                 result = mask_processor.inference
                 mask_processor.model.show_result(full_path, result, out_file=f"{target_folder}{filename}")
+
+                # card process time is being updated if mask is printed for proper time measurement of mean height
+                # calculation
+                card_top_bottom_found_time = time.time()
             try:
                 card_height_px: float = mask_processor.measure_mean_height_px(mark_to_image=image)
+                logger.info(f"Mean height measurement completed in "
+                            f"{(card_top_bottom_found_time - convex_hull_completed_time):.2f} seconds.")
             except AssertionError:
                 logger.warning(f"No parallel lines were found for file {full_path}")
                 logger.warning(f"Writing to file: {target_folder}failed_files.txt")
@@ -150,6 +178,9 @@ def main():
                 continue
             try:
                 measure_eye_distance(image, card_height_px, width, height, full_path)
+                eye_dist_measurement_time = time.time()
+                logger.info(f"Eye distance measurement completed in "
+                            f"{(eye_dist_measurement_time - card_top_bottom_found_time):.2f} seconds.")
             except:
                 logger.warning(f"Face not detected for file {full_path}")
                 with open(f"{target_folder}failed_files.txt", "a") as text_file:
@@ -163,9 +194,14 @@ def main():
             logger.info(f"Saving processed file to {result_file_path}")
             cv2.imwrite(result_file_path, image)
 
+            logger.info(f"{filename} is processed in {(time.time() - file_load_time):.2f} seconds")
+            mean_process_time += time.time() - file_load_time
+            num_processed_images += 1
             if args.single_step:
-                exit()
+                break
 
+    logger.info(f"Batch inference completed in {(time.time() - script_exec_time):.2f}")
+    logger.info(f"Total {num_processed_images} files were processed.")
 
 if __name__ == "__main__":
     main()
