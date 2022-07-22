@@ -34,8 +34,8 @@ optimizer = dict(_delete_=True, type='AdamW', lr={LEARNING_RATE}, weight_decay={
 optimizer_config = dict(grad_clip=None)
 
 data = dict(
-    samples_per_gpu=8,
-    workers_per_gpu=8,
+    samples_per_gpu=16,
+    workers_per_gpu=16,
     train=dict(
         # img_prefix='data/base_set/training/',
         img_prefix='data/{SET_FOLDER}/training/images/',
