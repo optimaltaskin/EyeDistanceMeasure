@@ -11,19 +11,19 @@ logger = logging.getLogger(__name__)
 logging.getLogger("matplotlib").setLevel(logging.INFO)
 logging.getLogger("PIL").setLevel(logging.INFO)
 
-conf_file_no_ext = "conf_template_m7"
+conf_file_no_ext = "conf_template_m7X101"
 file_path = f"configs/_optimal/{conf_file_no_ext}.py"
 target_conf_file_path = f"configs/_optimal/{conf_file_no_ext}_final.py"
 tuning_res_folder = "results/tuning_results/AdamW/mask7/"
 
-NUMBER_OF_EPOCHS = 12
+NUMBER_OF_EPOCHS = 50
 EXCLUDE_ITER_JSON = "exclude_iters.json"
 exclude_iter_json_path = f'{tuning_res_folder}{EXCLUDE_ITER_JSON}'
 
-bbone_list = [50]
+bbone_list = [101]
 set_list = ["cocoset_10k_american_cards"]
 mask_list = [7]
-lr_list = [0.00005, 0.00001] #0.0001,
+lr_list = [0.0001, 0.00005, 0.00001]
 
 target_conf_file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), target_conf_file_path)
 

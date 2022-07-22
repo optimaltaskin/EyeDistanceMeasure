@@ -1,5 +1,17 @@
 _base_ = '../point_rend/point_rend_r50_caffe_fpn_mstrain_3x_coco_downloaded.py'
 model = dict(
+    backbone=dict(
+        type='ResNeXt',
+        depth=101,
+        groups=32,
+        base_width=4,
+        num_stages=4,
+        out_indices=(0, 1, 2, 3),
+        frozen_stages=1,
+        norm_cfg=dict(type='BN', requires_grad=True),
+        style='pytorch',
+        init_cfg=dict(
+            type='Pretrained', checkpoint='open-mmlab://resnext101_32x4d')),
     roi_head=dict(
         bbox_head=dict(
             num_classes=1,
@@ -11,12 +23,6 @@ model = dict(
             num_classes=1,
         ),
     ),
-    test_cfg=dict(
-        rpn=dict(
-            max_per_img=100, ),
-        rcnn=dict(
-            max_per_img=10, ),
-    ),
 )
 dataset_type = 'COCODataset'
 classes = ('card',)
@@ -24,13 +30,12 @@ log_config = dict(interval=20, hooks=[dict(type='TextLoggerHook')])
 checkpoint_config = dict(interval=4)
 runner = dict(type='EpochBasedRunner', max_epochs={EPOCH})
 workflow = [('train', 1), ('val', 1)]
-# optimizer = dict(type='SGD', lr={LEARNING_RATE}, weight_decay={WEIGHT_DECAY})
 optimizer = dict(_delete_=True, type='AdamW', lr={LEARNING_RATE}, weight_decay={WEIGHT_DECAY})
 optimizer_config = dict(grad_clip=None)
 
 data = dict(
-    samples_per_gpu=5,
-    workers_per_gpu=5,
+    samples_per_gpu=8,
+    workers_per_gpu=8,
     train=dict(
         # img_prefix='data/base_set/training/',
         img_prefix='data/{SET_FOLDER}/training/images/',

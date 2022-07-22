@@ -33,7 +33,8 @@ def main():
                   f"--check_file {checkpoint} "
                   "--print_mask True "
                   f"--images_dir data/{set}/ "
-                  f"--save_to_folder {root}/{filename_no_extension(checkpoint)}/inference_results/{set}/")
+                  f"--save_to_folder {root}/{filename_no_extension(checkpoint)}/inference_results/{set}/ "
+                  f"--use_card_roi True")
 
 
 if __name__ == "__main__":

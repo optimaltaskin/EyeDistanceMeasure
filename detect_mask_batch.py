@@ -39,11 +39,12 @@ def arguement_parse():
                         required=False, default="")
     parser.add_argument("--images_dir", help="Directory to images to process",
                         required=False, default='data/result_validation/')
+    parser.add_argument("--use_card_roi", help="Uses cropped card roi instead of full image for mask processing.",
+                         default=False)
     return parser.parse_args()
 
 
-def measure_eye_distance(image, card_height_px, width, height, filename):
-    facial_features = FacialFeaturesExtractor(image)
+def measure_eye_distance(facial_features, card_height_px, width, height, image):
 
     facial_features.mark_features()
     pupils_distance_pixels = facial_features.get_pupils_distance()
@@ -92,6 +93,7 @@ def main():
     logger.info(f"Checkpoint loaded in {(mask_processor_init_time - init_time):.2f} seconds.")
 
     directory = args.images_dir
+    print(f"Main work folder is: {directory}")
     target_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                  target_folder)
     if not os.path.isdir(target_folder):
@@ -103,14 +105,14 @@ def main():
     mean_process_time: float = 0.0
     for filename in os.listdir(directory):
 
-        # todo: Add PNG file support
-        if filename.lower().endswith(".jpg"):
+        if filename.lower().endswith(".jpg") or filename.lower().endswith(".png"):
 
             file_load_time = time.time()
+            suffix = "jpg" if filename.lower().endswith(".jpg") else "png"
             if args.image_file != "":
                 full_path = args.image_file
                 args.single_step = True
-                filename = f"{filename_no_extension(args.image_file)}.jpg"
+                filename = f"{filename_no_extension(args.image_file)}.{suffix}"
             else:
                 full_path = os.path.join(directory, filename)
             logger.info(f"Processing file: {full_path}")
@@ -120,9 +122,29 @@ def main():
 
             height, width = image.shape[:2]
 
+            try:
+                facial_features = FacialFeaturesExtractor(image)
+            except ValueError:
+                logger.warning(f"Face not detected for file {full_path}")
+                with open(f"{target_folder}failed_files.txt", "a") as text_file:
+                    text_file.write(f"{filename} - Face not detected!\n")
+                if args.single_step:
+                    exit()
+                else:
+                    continue
+
+            if args.use_card_roi:
+                os.makedirs(os.path.join(directory, "card_rois"), exist_ok=True)
+                card_roi_file_path = os.path.join(directory, f"card_rois/{filename}")
+                image = facial_features.crop_whole_head()
+                height, width = image.shape[:2]
+                cv2.imwrite(card_roi_file_path, image)
+                image_file = card_roi_file_path
+            else:
+                image_file = full_path
 
             try:
-                mask_processor.initialize(full_path)
+                mask_processor.initialize(image_file)
                 inference_init_completed_time = time.time()
                 logger.info(f"Inference completed in {(inference_init_completed_time - file_load_complete_time):.2f} "
                             f"seconds.")
@@ -159,7 +181,7 @@ def main():
                         f"{(card_top_bottom_found_time - convex_hull_completed_time):.2f} seconds.")
             if args.print_mask:
                 result = mask_processor.inference
-                mask_processor.model.show_result(full_path, result, out_file=f"{target_folder}{filename}")
+                mask_processor.model.show_result(mask_processor.image_filename, result, out_file=f"{target_folder}{filename}")
 
                 # card process time is being updated if mask is printed for proper time measurement of mean height
                 # calculation
@@ -177,7 +199,7 @@ def main():
                     exit()
                 continue
             try:
-                measure_eye_distance(image, card_height_px, width, height, full_path)
+                measure_eye_distance(facial_features, card_height_px, width, height, image)
                 eye_dist_measurement_time = time.time()
                 logger.info(f"Eye distance measurement completed in "
                             f"{(eye_dist_measurement_time - card_top_bottom_found_time):.2f} seconds.")
@@ -190,7 +212,7 @@ def main():
 
             result_file_path = os.path.join(Path(__file__).parent,
                                             Path(f"{target_folder}{filename_no_extension(full_path)}--"
-                                                 f"{datetime.now().strftime('%d-%m-%Y')}.jpg"))
+                                                 f"{datetime.now().strftime('%d-%m-%Y')}.{suffix}"))
             logger.info(f"Saving processed file to {result_file_path}")
             cv2.imwrite(result_file_path, image)
 
@@ -205,3 +227,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

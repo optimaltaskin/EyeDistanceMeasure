@@ -1,0 +1,148 @@
+2022-07-19 18:01:49,450 INFO     __main__                                           39    Starting with excluded iterations as below: 
+[]
+2022-07-19 18:01:49,450 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:0.0001
+wd:0.0001
+2022-07-19 18:01:49,450 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-19 18:01:49,450 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-19 18:01:49,450 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:01:49,451 INFO     __main__                                           98    Config file saved successfully. Beginning training!
+2022-07-19 18:07:16,571 INFO     __main__                                           39    Starting with excluded iterations as below: 
+[]
+2022-07-19 18:07:16,571 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:0.0001
+wd:0.0001
+2022-07-19 18:07:16,571 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-19 18:07:16,571 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-19 18:07:16,571 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-19 18:07:16,571 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-19 18:07:16,572 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:07:16,572 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:07:16,572 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:07:16,572 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:07:16,572 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:07:16,572 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 18:07:16,572 INFO     __main__                                           98    Config file saved successfully. Beginning training!
+2022-07-19 19:34:44,276 INFO     __main__                                           39    Starting with excluded iterations as below: 
+[]
+2022-07-19 19:34:44,277 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:0.0001
+wd:0.0001
+2022-07-19 19:34:44,277 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-19 19:34:44,277 INFO     __main__                                           98    Config file saved successfully. Beginning training!
+2022-07-20 07:23:49,186 INFO     __main__                                           111   Training completed. Created directory: /home/patroclos/PycharmProjects/mmdet/results/tuning_results/AdamW/mask7/set_cocoset_10k_american_cards_bbone50_m_7_lr_0.0001_wd_0.0001.
+2022-07-20 07:27:28,048 INFO     __main__                                           121   Creating necessary folders to store resulting path and config files.
+2022-07-20 07:37:56,176 INFO     __main__                                           39    Starting with excluded iterations as below: 
+[]
+2022-07-20 07:37:56,177 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:5e-05
+wd:5e-05
+2022-07-20 07:37:56,177 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-20 07:37:56,177 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-20 07:37:56,177 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-20 07:37:56,177 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-20 07:37:56,177 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:37:56,177 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:37:56,177 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:37:56,177 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:37:56,178 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:37:56,178 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:37:56,178 INFO     __main__                                           98    Config file saved successfully. Beginning training!
+2022-07-20 07:47:44,658 INFO     __main__                                           39    Starting with excluded iterations as below: 
+[]
+2022-07-20 07:47:44,658 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:5e-05
+wd:5e-05
+2022-07-20 07:47:44,658 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:47:44,659 INFO     __main__                                           98    Config file saved successfully. Beginning training!
+2022-07-20 07:50:53,675 INFO     __main__                                           39    Starting with excluded iterations as below: 
+[]
+2022-07-20 07:50:53,676 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:5e-05
+wd:5e-05
+2022-07-20 07:50:53,676 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:50:53,676 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-20 07:50:53,677 INFO     __main__                                           98    Config file saved successfully. Beginning training!
+2022-07-21 04:23:41,284 INFO     __main__                                           111   Training completed. Created directory: /home/patroclos/PycharmProjects/mmdet/results/tuning_results/AdamW/mask7/set_cocoset_10k_american_cards_bbone50_m_7_lr_5e-05_wd_5e-05.
+2022-07-21 04:27:16,080 INFO     __main__                                           121   Creating necessary folders to store resulting path and config files.
+2022-07-21 04:27:16,081 INFO     __main__                                           149   Plotting loss values...
+2022-07-21 04:27:17,900 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:5e-05
+wd:5e-06
+2022-07-21 04:27:17,900 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-21 04:27:17,900 INFO     __main__                                           98    Config file saved successfully. Beginning training!
+2022-07-22 00:17:22,682 INFO     __main__                                           111   Training completed. Created directory: /home/patroclos/PycharmProjects/mmdet/results/tuning_results/AdamW/mask7/set_cocoset_10k_american_cards_bbone50_m_7_lr_5e-05_wd_5e-06.
+2022-07-22 00:21:42,233 INFO     __main__                                           121   Creating necessary folders to store resulting path and config files.
+2022-07-22 00:21:42,234 INFO     __main__                                           149   Plotting loss values...
+2022-07-22 00:21:44,135 INFO     __main__                                           45    Beginning iteration with following parameters:
+mask_size:7
+set:cocoset_10k_american_cards
+lr:1e-05
+wd:1e-05
+2022-07-22 00:21:44,136 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           79    Number of epochs changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           63    Learning rate and weight decay changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           67    Set folder changed successfully!..
+2022-07-22 00:21:44,136 INFO     __main__                                           98    Config file saved successfully. Beginning training!
